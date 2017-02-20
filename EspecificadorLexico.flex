@@ -20,7 +20,11 @@ import java.util.*;
 	}catch(IOException ioe){System.out.println("Error");}
 %eof}
 
+ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
 
 %standalone
 
 %%
+
+{ident}	{bw.write(yytext());}
+
