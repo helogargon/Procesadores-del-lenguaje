@@ -23,12 +23,15 @@ import java.util.*;
 ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
 signo= [+-]?
 decint= {signo}[0-9]+
+decfloat= {decint}"."[0-9]+
 
 %standalone
 
 %%
 
 {ident}	{bw.write(yytext());}
+
+{decfloat} {bw.write(yytext());}
 
 {decint} {bw.write(yytext());}
 
