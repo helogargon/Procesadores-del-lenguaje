@@ -1,0 +1,5 @@
+contador
+contador1
+$acumulador_total_2
+
+
