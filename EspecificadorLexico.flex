@@ -28,6 +28,8 @@ octint = {signo}0([0-7])*
 octfloat = {signo}0([0-7])*"."([0-7])+
 hexint= "0x"{signo}[A-F0-9]+
 hexfloat= "0x"{signo}[A-F0-9]+"."[A-F0-9]+
+constint= {decint}|{octint}|{hexint}
+constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
@@ -35,9 +37,9 @@ hexfloat= "0x"{signo}[A-F0-9]+"."[A-F0-9]+
 
 {ident}	{bw.write(yytext());}
 
-{decfloat} {bw.write(yytext());}
+{constfloat} {bw.write(yytext());}
 
-{decint} {bw.write(yytext());}
+{constint} {bw.write(yytext());}
 
 "\n"	{bw.write(yytext());}
 
