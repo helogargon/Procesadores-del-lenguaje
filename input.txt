@@ -1,5 +1,9 @@
 contador
 contador1
 $acumulador_total_2
-
-
++123
+-4
+45
+-123.45
++34.0
+46.56
