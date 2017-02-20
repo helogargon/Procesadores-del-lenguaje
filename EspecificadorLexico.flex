@@ -26,6 +26,8 @@ decint= {signo}[0-9]+
 decfloat= {decint}"."[0-9]+
 octint = {signo}0([0-7])*
 octfloat = {signo}0([0-7])*"."([0-7])+
+hexint= "0x"{signo}[A-F0-9]+
+hexfloat= "0x"{signo}[A-F0-9]+"."[A-F0-9]+
 
 %standalone
 
