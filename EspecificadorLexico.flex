@@ -24,6 +24,8 @@ ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
 signo= [+-]?
 decint= {signo}[0-9]+
 decfloat= {decint}"."[0-9]+
+octint = {signo}0([0-7])*
+octfloat = {signo}0([0-7])*"."([0-7])+
 
 %standalone
 
