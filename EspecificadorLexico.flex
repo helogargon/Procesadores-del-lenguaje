@@ -21,10 +21,16 @@ import java.util.*;
 %eof}
 
 ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
+signo= [+-]?
+decint= {signo}[0-9]+
 
 %standalone
 
 %%
 
 {ident}	{bw.write(yytext());}
+
+{decint} {bw.write(yytext());}
+
+"\n"	{bw.write(yytext());}
 
