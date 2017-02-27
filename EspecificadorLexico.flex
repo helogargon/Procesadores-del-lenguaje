@@ -33,13 +33,26 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
+%xstate entrecomillado, comentario, texto
+
 %%
 
-{ident}	{bw.write(yytext());}
+{ident}	{bw.write(yytext()); yybegin(texto);}
 
-{constfloat} {bw.write(yytext());}
+{constfloat} {bw.write(yytext()); yybegin(texto);}
 
-{constint} {bw.write(yytext());}
+{constint} {bw.write(yytext()); yybegin(texto);}
 
-"\n"	{bw.write(yytext());}
+"'"	{	bw.write("'");
+		yybegin(texto);
+}
+
+<entrecomillado> "\'" {	bw.write("'");
+			yybegin(texto);
+			}
+
+<texto> [^"\'""'"]|.|\n {yybegin(entrecomillado);
+			bw.write(yytext());
+			yybegin(YYINITIAL);
+		}
 
