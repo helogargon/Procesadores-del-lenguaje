@@ -43,7 +43,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 {constint} {bw.write(yytext()); yybegin(texto);}
 
-"'"	{	bw.write("'");
+"'"	{	
 		yybegin(texto);
 }
 
