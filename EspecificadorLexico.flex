@@ -51,7 +51,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 			yybegin(texto);
 			}
 
-<texto> [^"\'""'"]|.|\n {yybegin(entrecomillado);
+<texto> .|\n {yybegin(entrecomillado);
 			bw.write(yytext());
 			yybegin(YYINITIAL);
 		}
