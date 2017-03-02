@@ -5,24 +5,25 @@ import java.util.*;
 
 %{
 	private BufferedWriter bw;
+	private String palabra = "";
 %}
 %init{
 	try{
 		bw = new BufferedWriter(new FileWriter("salida.html"));
 	}catch(IOException ioe){
-		System.out.println("File not exist");
+		System.err.println("File not exist");
 	}
 %init}
 
 %eof{
 	try{
 		bw.close();
-	}catch(IOException ioe){System.out.println("Error");}
+	}catch(IOException ioe){System.err.println("Error");}
 %eof}
 
 ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
 signo= [+-]?
-decint= {signo}[1-9][0-9]+
+decint= {signo}[1-9][0-9]+|{signo}[0-9]
 decfloat= {signo}[0-9]+"."[0-9]+
 octint = {signo}0([0-7])*
 octfloat = {signo}0([0-7])*"."([0-7])+
@@ -33,26 +34,21 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
-%xstate entrecomillado, comentario, texto
+%xstate ENTRECOMILLADO, COMENTARIO, TEXTO
 
 %%
 
-{ident}	{bw.write(yytext()); yybegin(texto);}
+{ident}	{bw.write(yytext()); yybegin(TEXTO);}
 
-{constfloat} {bw.write(yytext()); yybegin(texto);}
+{constfloat} {bw.write(yytext()); yybegin(TEXTO);}
 
-{constint} {bw.write(yytext()); yybegin(texto);}
+{constint} {bw.write(yytext()); yybegin(TEXTO);}
 
-"'"	{	
-		yybegin(texto);
-}
+"'"	{yybegin(ENTRECOMILLADO);}
 
-<entrecomillado> "\'" {	bw.write("'");
-			yybegin(texto);
-			}
+<ENTRECOMILLADO> "\'"	{palabra += "'";}
 
-<texto> .|\n {yybegin(entrecomillado);
-			bw.write(yytext());
-			yybegin(YYINITIAL);
-		}
+<ENTRECOMILLADO> "'"	{bw.write(palabra);	palabra = "";	yybegin(YYINITIAL);}
+
+<ENTRECOMILLADO> .	{palabra += yytext();}
 
