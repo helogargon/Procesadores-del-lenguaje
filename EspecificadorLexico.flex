@@ -34,7 +34,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
-%xstate ENTRECOMILLADO, COMENTARIO, TEXTO
+%xstate ENTRECOMILLADO, COMENTARIO, COMENTARIO_L, TEXTO
 
 %%
 
@@ -46,9 +46,18 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 "'"	{yybegin(ENTRECOMILLADO);}
 
+"//"	{yybegin(COMENTARIO_L);}
+"/*"	{yybegin(COMENTARIO);}
+
 <ENTRECOMILLADO> "\'"	{palabra += "'";}
 
 <ENTRECOMILLADO> "'"	{bw.write(palabra);	palabra = "";	yybegin(YYINITIAL);}
 
 <ENTRECOMILLADO> .	{palabra += yytext();}
+
+<COMENTARIO_L> .	{bw.write(yytext());	yybegin(YYINITIAL);}
+
+<COMENTARIO> "*/"	{yybegin(YYINITIAL);}
+
+<COMENTARIO> .	{bw.write(yytext());}
 
