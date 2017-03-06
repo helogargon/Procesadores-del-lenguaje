@@ -1,10 +1,10 @@
 contador
-contador1
-$acumulador_total_2
-+123
--4
-45
--123.45
-+34.0
-46.56
+No-identificador
+0x+123.0
+.32
+no debe reconocerlo
+//esto es un comentario
+esto no es un comentario
 'soy una \'constante literal\' entrecomillada'
+/*Esto ocupa varias
+lineas como vez*/
