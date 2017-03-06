@@ -4,21 +4,13 @@ import java.util.*;
 %%
 
 %{
-	private BufferedWriter bw;
 	private String palabra = "";
 %}
 %init{
-	try{
-		bw = new BufferedWriter(new FileWriter("salida.html"));
-	}catch(IOException ioe){
-		System.err.println("File not exist");
-	}
+
 %init}
 
 %eof{
-	try{
-		bw.close();
-	}catch(IOException ioe){System.err.println("Error");}
 %eof}
 
 ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
@@ -34,30 +26,30 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
-%xstate ENTRECOMILLADO, COMENTARIO, COMENTARIO_L, TEXTO
+%xstate ENTRECOMILLADO, COMENTARIO, COMENTARIO_L
 
 %%
 
-{ident}	{bw.write(yytext()); yybegin(TEXTO);}
+{ident}	{System.out.print(yytext());}
 
-{constfloat} {bw.write(yytext()); yybegin(TEXTO);}
+{constfloat} {System.out.print(yytext());}
 
-{constint} {bw.write(yytext()); yybegin(TEXTO);}
+{constint} {System.out.print(yytext());}
 
 "'"	{yybegin(ENTRECOMILLADO);}
 
-"//"	{yybegin(COMENTARIO_L);}
-"/*"	{yybegin(COMENTARIO);}
+"//"	{System.out.print("//");yybegin(COMENTARIO_L);}
+"/*"	{System.out.print("/*");yybegin(COMENTARIO);}
 
-<ENTRECOMILLADO> "\'"	{palabra += "'";}
+<ENTRECOMILLADO> "\\\'"	{palabra += "'";}
 
-<ENTRECOMILLADO> "'"	{bw.write(palabra);	palabra = "";	yybegin(YYINITIAL);}
+<ENTRECOMILLADO> "'"	{System.out.print(palabra);	palabra = "";	yybegin(YYINITIAL);}
 
 <ENTRECOMILLADO> .	{palabra += yytext();}
 
-<COMENTARIO_L> .	{bw.write(yytext());	yybegin(YYINITIAL);}
+<COMENTARIO_L> .	{System.out.print(yytext());	yybegin(YYINITIAL);}
 
-<COMENTARIO> "*/"	{yybegin(YYINITIAL);}
+<COMENTARIO> "*/"	{System.out.print("*/");yybegin(YYINITIAL);}
 
-<COMENTARIO> .	{bw.write(yytext());}
+<COMENTARIO> .|"\n"	{System.out.print(yytext());}
 
