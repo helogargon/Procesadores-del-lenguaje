@@ -26,20 +26,26 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
-%xstate ENTRECOMILLADO, COMENTARIO, COMENTARIO_L
+%xstate ENTRECOMILLADO, COMENTARIO, COMENTARIO_L,TEXTO
 
 %%
+<YYINITIAL>{
+	{ident}	{System.out.print(yytext());}
 
-{ident}	{System.out.print(yytext());}
+	{constfloat} {System.out.print(yytext());}
 
-{constfloat} {System.out.print(yytext());}
+	{constint} {System.out.print(yytext());}
 
-{constint} {System.out.print(yytext());}
+	"'"	{yybegin(ENTRECOMILLADO);}
 
-"'"	{yybegin(ENTRECOMILLADO);}
+	"//"	{System.out.print("//");yybegin(COMENTARIO_L);}
 
-"//"	{System.out.print("//");yybegin(COMENTARIO_L);}
-"/*"	{System.out.print("/*");yybegin(COMENTARIO);}
+	"/*"	{System.out.print("/*");yybegin(COMENTARIO);}
+
+	[.]+	{System.out.print("Error: "+yytext()); yybegin(TEXTO);}
+
+	"\n"	{System.out.print("\n"); yybegin(YYINITIAL);}
+}
 
 <ENTRECOMILLADO> "\\\'"	{palabra += "'";}
 
@@ -52,4 +58,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 <COMENTARIO> "*/"	{System.out.print("*/");yybegin(YYINITIAL);}
 
 <COMENTARIO> .|"\n"	{System.out.print(yytext());}
+
+<TEXTO>	"\n"	{System.out.print("\n"); yybegin(YYINITIAL);}
+
 
