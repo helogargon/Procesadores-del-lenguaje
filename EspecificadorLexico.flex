@@ -36,13 +36,13 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 	{constint} {System.out.print(yytext());}
 
-	"'"	{yybegin(ENTRECOMILLADO);}
+	"'".*"'"	{yypushback(yylength()-1);yybegin(ENTRECOMILLADO);}
 
-	"//"	{System.out.print("//");yybegin(COMENTARIO_L);}
+	"//".*	{System.out.println(yytext());}
 
-	"/*"	{System.out.print("/*");yybegin(COMENTARIO);}
+	"/*".*	{System.out.print("/*");yybegin(COMENTARIO);yypushback(yylength()-2);}
 
-	[^"\n"]+	{System.out.print("Error: "+yytext());}
+	.+	{System.out.print("Error: "+yytext());}
 
 	"\n"	{System.out.print("\n");}
 }
@@ -53,9 +53,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 <ENTRECOMILLADO> .	{palabra += yytext();}
 
-<COMENTARIO_L> .	{System.out.print(yytext());	yybegin(YYINITIAL);}
-
-<COMENTARIO> "*/"	{System.out.print("*/");yybegin(YYINITIAL);}
+<COMENTARIO> .*"*/"	{System.out.println(yytext());yybegin(YYINITIAL);}
 
 <COMENTARIO> .|"\n"	{System.out.print(yytext());}
 
