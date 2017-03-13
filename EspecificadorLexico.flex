@@ -42,9 +42,9 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 	"/*"	{System.out.print("/*");yybegin(COMENTARIO);}
 
-	[.]+	{System.out.print("Error: "+yytext()); yybegin(TEXTO);}
+	[^"\n"]+	{System.out.print("Error: "+yytext());}
 
-	"\n"	{System.out.print("\n"); yybegin(YYINITIAL);}
+	"\n"	{System.out.print("\n");}
 }
 
 <ENTRECOMILLADO> "\\\'"	{palabra += "'";}
