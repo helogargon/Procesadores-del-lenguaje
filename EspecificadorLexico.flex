@@ -26,7 +26,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 %standalone
 
-%xstate ENTRECOMILLADO, COMENTARIO, COMENTARIO_L,TEXTO
+%xstate ENTRECOMILLADO, COMENTARIO
 
 %%
 <YYINITIAL>{
@@ -56,7 +56,5 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 <COMENTARIO> .*"*/"	{System.out.println(yytext());yybegin(YYINITIAL);}
 
 <COMENTARIO> .|"\n"	{System.out.print(yytext());}
-
-<TEXTO>	"\n"	{System.out.print("\n"); yybegin(YYINITIAL);}
 
 
