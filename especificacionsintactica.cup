@@ -9,6 +9,7 @@ RESTPART::= ident par_A LISTPARAM par_C BLQ;
 BLQ::= llave_A SENTLIST llave_C;
 LISTPARAM::= LISTPARAM coma TYPE ident | TYPE ident;
 TYPE::= void|int|float;
+
 SENTLIST::= SENTLIST SENT|SENT;
 SENT::=TYPE LID pcoma|ident igual EXP pcoma|ident par_A LEXP par_C pcoma|return EXP pcoma;
 LID::=ident|LID coma ident;
