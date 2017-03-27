@@ -1,1 +1,18 @@
-import java_cuo.runtime.*;
+import java_cup.runtime.*;
+
+terminal ident, void, int, float, coma, pcoma, par_A, par_C, llave_A, llave_C, igual, op_sum, op_sub, op_mul, op_div, op_mod, constint, constfloat, constlit, return;
+non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID, EXP, LEXP, OP, FACTOR;
+
+PROGRAM ::= PART PROGRAM | PART;
+PART::= TYPE RESTPART;
+RESTPART::= ident par_A LISTPARAM par_C BLQ;
+BLQ::= llave_A SENTLIST llave_C;
+LISTPARAM::= LISTPARAM coma TYPE ident | TYPE ident;
+TYPE::= void|int|float;
+SENTLIST::= SENTLIST SENT|SENT;
+SENT::=TYPE LID pcoma|ident igual EXP pcoma|ident par_A LEXP par_C pcoma|return EXP pcoma;
+LID::=ident|LID coma ident;
+LEXP::= EXP|LEXP coma EXP;
+EXP::= EXP OP EXP|FACTOR;
+OP::= op_sum|op_sub|op_mul|op_div|op_mod;
+FACTOR::= ident par_A LEXP par_C| par_A EXP par_C|ident|constint|constfloat|constlit;
