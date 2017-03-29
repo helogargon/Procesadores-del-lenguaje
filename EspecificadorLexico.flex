@@ -1,7 +1,14 @@
 import java.io.*;
 import java.util.*;
 
+import java_cup.runtime.*;
+
 %%
+
+%cup
+%line
+%column
+%class AnalizadorLexico
 
 %{
 	private String palabra = "";
@@ -29,8 +36,14 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 %xstate ENTRECOMILLADO, COMENTARIO
 
 %%
+"="	{return new java_cup.runtime.Symbol(sym.igual);}
+"+"	{return new java_cup.runtime.Symbol(sym.op_mas);}
+"*"	{return new java_cup.runtime.Symbol(sym.op_mul);}
+"/"	{return new java_cup.runtime.Symbol(sym.op_div);}
+"%"	{return new java_cup.runtime.Symbol(sym.op_mod);}
+"("	{return new java_cup.runtime.Symbol(sym.p);}
 <YYINITIAL>{
-	{ident}	{System.out.print(yytext());}
+	{ident}	{return new java_cup.runtime.Symbol(sym.ident);}
 
 	{constfloat} {System.out.print(yytext());}
 
