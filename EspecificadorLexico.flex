@@ -5,21 +5,16 @@ import java_cup.runtime.*;
 
 %%
 
+%class AnalizadorLexico
+%unicode
 %cup
 %line
 %column
-%class AnalizadorLexico
+
 
 %{
 	private String palabra = "";
 %}
-%init{
-
-%init}
-
-%eof{
-%eof}
-
 ident= [[:letter:]|[$]][[:letter:]|"_"|[0-9]|"$"]*
 signo= [+-]?
 decint= {signo}[1-9][0-9]+|{signo}[0-9]
@@ -31,23 +26,31 @@ hexfloat= "0x"{signo}[A-F0-9]+"."[A-F0-9]+
 constint= {decint}|{octint}|{hexint}
 constfloat= {decfloat}|{octfloat}|{hexfloat}
 
-%standalone
-
 %xstate ENTRECOMILLADO, COMENTARIO
 
 %%
 "="	{return new java_cup.runtime.Symbol(sym.igual);}
-"+"	{return new java_cup.runtime.Symbol(sym.op_mas);}
+"-"	{return new java_cup.runtime.Symbol(sym.op_sub);}
+"+"	{return new java_cup.runtime.Symbol(sym.op_sum);}
 "*"	{return new java_cup.runtime.Symbol(sym.op_mul);}
 "/"	{return new java_cup.runtime.Symbol(sym.op_div);}
 "%"	{return new java_cup.runtime.Symbol(sym.op_mod);}
-"("	{return new java_cup.runtime.Symbol(sym.p);}
+"("	{return new java_cup.runtime.Symbol(sym.par_A);}
+")"	{return new java_cup.runtime.Symbol(sym.par_C);}
+"{"	{return new java_cup.runtime.Symbol(sym.llave_A);}
+"}"	{return new java_cup.runtime.Symbol(sym.llave_C);}
+","	{return new java_cup.runtime.Symbol(sym.coma);}
+";"	{return new java_cup.runtime.Symbol(sym.pcoma);}
+"return"	{return new java_cup.runtime.Symbol(sym.return_);}
+"void"	{return new java_cup.runtime.Symbol(sym.tvoid);}
+"int"	{return new java_cup.runtime.Symbol(sym.tint);}
+"float"	{return new java_cup.runtime.Symbol(sym.tfloat);}
 <YYINITIAL>{
 	{ident}	{return new java_cup.runtime.Symbol(sym.ident);}
 
-	{constfloat} {System.out.print(yytext());}
+	{constfloat} {return new java_cup.runtime.Symbol(sym.constfloat);}
 
-	{constint} {System.out.print(yytext());}
+	{constint} {return new java_cup.runtime.Symbol(sym.constint);}
 
 	"'".*"'"	{yypushback(yylength()-1);yybegin(ENTRECOMILLADO);}
 
@@ -62,7 +65,10 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 <ENTRECOMILLADO> "\\\'"	{palabra += "'";}
 
-<ENTRECOMILLADO> "'"	{System.out.print(palabra);	palabra = "";	yybegin(YYINITIAL);}
+<ENTRECOMILLADO> "'"	{String s = palabra;
+						palabra = "";
+						yybegin(YYINITIAL);
+						return new java_cup.runtime.Symbol(sym.constlit, s);}
 
 <ENTRECOMILLADO> .	{palabra += yytext();}
 
