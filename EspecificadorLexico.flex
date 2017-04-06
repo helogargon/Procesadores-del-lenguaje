@@ -10,6 +10,9 @@ import java_cup.runtime.*;
 %cup
 %line
 %column
+%eofval{
+  return new Symbol(sym.EOF);
+%eofval}
 
 
 %{
@@ -29,6 +32,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 %xstate ENTRECOMILLADO, COMENTARIO
 
 %%
+<YYINITIAL>{
 "="	{return new java_cup.runtime.Symbol(sym.igual);}
 "-"	{return new java_cup.runtime.Symbol(sym.op_sub);}
 "+"	{return new java_cup.runtime.Symbol(sym.op_sum);}
@@ -41,26 +45,27 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "}"	{return new java_cup.runtime.Symbol(sym.llave_C);}
 ","	{return new java_cup.runtime.Symbol(sym.coma);}
 ";"	{return new java_cup.runtime.Symbol(sym.pcoma);}
-"return"	{return new java_cup.runtime.Symbol(sym.return_);}
-"void"	{return new java_cup.runtime.Symbol(sym.tvoid);}
-"int"	{return new java_cup.runtime.Symbol(sym.tint);}
-"float"	{return new java_cup.runtime.Symbol(sym.tfloat);}
-<YYINITIAL>{
-	{ident}	{return new java_cup.runtime.Symbol(sym.ident);}
+"return "	{return new java_cup.runtime.Symbol(sym.return_);}
+"void "	{return new java_cup.runtime.Symbol(sym.tvoid);}
+"int "	{return new java_cup.runtime.Symbol(sym.tint);}
+"float "	{Systen.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
 
-	{constfloat} {return new java_cup.runtime.Symbol(sym.constfloat);}
+{ident}	{return new java_cup.runtime.Symbol(sym.ident);}
 
-	{constint} {return new java_cup.runtime.Symbol(sym.constint);}
+{constfloat} {return new java_cup.runtime.Symbol(sym.constfloat);}
 
-	"'".*"'"	{yypushback(yylength()-1);yybegin(ENTRECOMILLADO);}
+{constint} {return new java_cup.runtime.Symbol(sym.constint);}
 
-	"//".*	{System.out.println(yytext());}
+"'".*"'"	{yypushback(yylength()-1);yybegin(ENTRECOMILLADO);}
 
-	"/*".*	{System.out.print("/*");yybegin(COMENTARIO);yypushback(yylength()-2);}
+"//".*	{System.out.println(yytext());}
 
-	.+	{System.out.print("Error: "+yytext());}
+"/*".*	{System.out.print("/*");yybegin(COMENTARIO);yypushback(yylength()-2);}
 
-	"\n"	{System.out.print("\n");}
+.+	{System.out.print("Error: "+yytext());}
+
+\n {System.out.print(yytext());}
+[^] {;}	
 }
 
 <ENTRECOMILLADO> "\\\'"	{palabra += "'";}

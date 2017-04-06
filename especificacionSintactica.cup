@@ -5,13 +5,14 @@ non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID,
 
 
 precedence left op_mul, op_div, op_mod, op_sum, op_sub;
+start with PROGRAM;
 
 PROGRAM ::= PART PROGRAM | PART;
 PART::= TYPE RESTPART;
 RESTPART::= ident par_A LISTPARAM par_C BLQ;
 BLQ::= llave_A SENTLIST llave_C;
 LISTPARAM::= LISTPARAM coma TYPE ident | TYPE ident;
-TYPE::= tvoid|tint|tfloat;
+TYPE::= tvoid | tint | tfloat;
 
 SENTLIST::= SENTLIST SENT | SENT;
 SENT::= TYPE LID pcoma | ident igual EXP pcoma | ident par_A LEXP par_C pcoma | return_ EXP pcoma;

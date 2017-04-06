@@ -1,0 +1,4 @@
+float devolver (float e2){
+	float $i2;	
+	i2 = 9;
+}
