@@ -49,6 +49,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "void"	{return new java_cup.runtime.Symbol(sym.tvoid);}
 "int"	{return new java_cup.runtime.Symbol(sym.tint);}
 "float"	{Systen.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
+" "	{;}
 
 {ident}	{return new java_cup.runtime.Symbol(sym.ident);}
 
@@ -61,9 +62,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "//".*	{System.out.println(yytext());}
 
 "/*".*	{System.out.print("/*");yybegin(COMENTARIO);yypushback(yylength()-2);}
-" "	{;}
 \n {System.out.print(yytext());}
-.+	{System.out.print("Error: "+yytext());}
 [^] {;}	
 }
 
