@@ -21,7 +21,7 @@ public class Analizador {
 //            for (int i = 0; i < argv.length; i++) {
                 AnalizadorLexico lexico = null;
                 try {
-                    lexico = new AnalizadorLexico(new java.io.FileReader("/media/miguel/0914-ABE8/Universidad/3º/Procesadores del Lenguaje/Practica grupal 2/Procesadores-del-lenguaje/Analizador/src/analizador/input1.txt"));
+                    lexico = new AnalizadorLexico(new java.io.FileReader("C:\\Users\\Elena\\Documents\\URJC\\PL\\Procesadores-del-lenguaje\\input1.txt"));
                     parser sintactico = new parser(lexico);
                     Object resultado = sintactico.parse().value;
 //                } catch (java.io.FileNotFoundException e) {
