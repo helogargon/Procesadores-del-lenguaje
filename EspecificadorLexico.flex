@@ -45,11 +45,11 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "}"	{return new java_cup.runtime.Symbol(sym.llave_C);}
 ","	{return new java_cup.runtime.Symbol(sym.coma);}
 ";"	{return new java_cup.runtime.Symbol(sym.pcoma);}
+" "	{;}
 "return"	{return new java_cup.runtime.Symbol(sym.return_);}
 "void"	{return new java_cup.runtime.Symbol(sym.tvoid);}
 "int"	{return new java_cup.runtime.Symbol(sym.tint);}
-"float"	{System.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
-" "	{;}
+"float"	{return new java_cup.runtime.Symbol(sym.tfloat);}
 
 {ident}	{return new java_cup.runtime.Symbol(sym.ident);}
 
