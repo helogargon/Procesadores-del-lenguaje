@@ -48,7 +48,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "return"	{return new java_cup.runtime.Symbol(sym.return_);}
 "void"	{return new java_cup.runtime.Symbol(sym.tvoid);}
 "int"	{return new java_cup.runtime.Symbol(sym.tint);}
-"float"	{Systen.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
+"float"	{System.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
 " "	{;}
 
 {ident}	{return new java_cup.runtime.Symbol(sym.ident);}
@@ -78,5 +78,4 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 <COMENTARIO> .*"*/"	{System.out.println(yytext());yybegin(YYINITIAL);}
 
 <COMENTARIO> .|"\n"	{System.out.print(yytext());}
-
 
