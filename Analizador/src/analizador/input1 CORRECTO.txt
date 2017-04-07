@@ -1,0 +1,4 @@
+int calcular(int var5, int var6){
+	int var7;
+	var7=var5+var6;
+}

@@ -5,7 +5,6 @@ non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID,
 
 
 precedence left op_mul, op_div, op_mod, op_sum, op_sub;
-start with PROGRAM;
 
 PROGRAM ::= PART PROGRAM | PART;
 PART::= TYPE RESTPART;
