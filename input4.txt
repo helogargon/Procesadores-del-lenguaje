@@ -1,4 +1,0 @@
-floar metodo(){
-	float f = 35.5;
-	return f;
-}

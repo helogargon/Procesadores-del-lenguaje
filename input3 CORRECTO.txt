@@ -1,4 +1,4 @@
-float restar(){
+float restar(float t){
 	int $minuendo;
 	int $sustraendo;
 	int $diferencia;
