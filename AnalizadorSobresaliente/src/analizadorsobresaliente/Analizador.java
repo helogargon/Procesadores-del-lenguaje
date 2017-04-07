@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package analizador;
+package analizadorsobresaliente;
 
 /**
  *
@@ -21,7 +21,7 @@ public class Analizador {
 //            for (int i = 0; i < argv.length; i++) {
                 AnalizadorLexico lexico = null;
                 try {
-                    lexico = new AnalizadorLexico(new java.io.FileReader("/media/miguel/0914-ABE8/Universidad/3º/Procesadores del Lenguaje/Practica grupal 2/Procesadores-del-lenguaje/Analizador/src/analizador/input4 ERRONEO.txt"));
+                    lexico = new AnalizadorLexico(new java.io.FileReader("/media/miguel/0914-ABE8/Universidad/3º/Procesadores del Lenguaje/Practica grupal 2/Procesadores-del-lenguaje/AnalizadorSobresaliente/src/analizadorsobresaliente/inputS1.txt"));
                     parser sintactico = new parser(lexico);
                     Object resultado = sintactico.parse().value;
 //                } catch (java.io.FileNotFoundException e) {

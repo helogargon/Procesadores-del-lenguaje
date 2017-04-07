@@ -5,6 +5,7 @@ non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID,
 
 
 precedence left op_mul, op_div, op_mod, op_sum, op_sub;
+precedence left tor, tand;
 
 PROGRAM ::= PART PROGRAM | PART;
 PART::= TYPE RESTPART| tstruct ident llave_A LFIELD llave_C pcoma;
@@ -12,7 +13,6 @@ RESTPART::= ident par_A LISTPARAM par_C BLQ;
 BLQ::= llave_A SENTLIST llave_C;
 LISTPARAM::= LISTPARAM coma TYPE ident | TYPE ident;
 TYPE::= tvoid | tint | tfloat;
-LFIELD ::= LFIELD TYPE LID pcoma  | TYPE LID pcoma;
 
 SENTLIST::= SENTLIST SENT | SENT;
 SENT::= TYPE LID pcoma | ID igual EXP pcoma | ident par_A LEXP par_C pcoma | return_ EXP pcoma | tif par_A LCOND par_C tthen BLQ telse BLQ | tfor par_A ident igual EXP pcoma LCOND pcoma ident igual EXP par_C BLQ | twhile par_A LCOND par_C BLQ | tdo BLQ tuntil par_A LCOND par_C | BLQ;
@@ -21,7 +21,7 @@ LEXP::= EXP | LEXP coma EXP;
 EXP::= EXP OP EXP | FACTOR;
 OP::= op_sum | op_sub | op_mul | op_div | op_mod;
 FACTOR::= ident par_A LEXP par_C | par_A EXP par_C | ID | constint | constfloat | constlit;
-
+LFIELD ::= LFIELD TYPE LID pcoma  | TYPE LID pcoma;
 ID ::= ident | ident punto ident| ident LDIM;
 LCOND ::= LCOND OPL LCOND | COND | tnot COND;
 OPL ::= tor | tand;
