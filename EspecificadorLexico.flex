@@ -45,10 +45,10 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "}"	{return new java_cup.runtime.Symbol(sym.llave_C);}
 ","	{return new java_cup.runtime.Symbol(sym.coma);}
 ";"	{return new java_cup.runtime.Symbol(sym.pcoma);}
-"return "	{return new java_cup.runtime.Symbol(sym.return_);}
-"void "	{return new java_cup.runtime.Symbol(sym.tvoid);}
-"int "	{return new java_cup.runtime.Symbol(sym.tint);}
-"float "	{Systen.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
+"return"	{return new java_cup.runtime.Symbol(sym.return_);}
+"void"	{return new java_cup.runtime.Symbol(sym.tvoid);}
+"int"	{return new java_cup.runtime.Symbol(sym.tint);}
+"float"	{Systen.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);}
 
 {ident}	{return new java_cup.runtime.Symbol(sym.ident);}
 
@@ -61,10 +61,9 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "//".*	{System.out.println(yytext());}
 
 "/*".*	{System.out.print("/*");yybegin(COMENTARIO);yypushback(yylength()-2);}
-
-.+	{System.out.print("Error: "+yytext());}
-
+" "	{;}
 \n {System.out.print(yytext());}
+.+	{System.out.print("Error: "+yytext());}
 [^] {;}	
 }
 
