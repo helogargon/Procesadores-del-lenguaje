@@ -1,11 +1,4 @@
-contadorReconocido
-No-identificador
-0x+123.0
-.32
-no debe reconocerlo
-//esto es un comentario que debe reconocer
-esto no es un comentario y no debe reconocerlo
-'soy una \'constante literal\' entrecomillada reconocida'
-/*Esto ocupa varias
-lineas como ves y
-estoy reconocido*/
+int devolver (int e2){
+	int $i2;	
+	i2 = 9;
+}
