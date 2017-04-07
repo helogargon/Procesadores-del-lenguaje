@@ -883,7 +883,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 54: break;
           case 27: 
-            { System.out.println("ok"); return new java_cup.runtime.Symbol(sym.tfloat);
+            { return new java_cup.runtime.Symbol(sym.tfloat);
             }
           case 55: break;
           case 28: 
