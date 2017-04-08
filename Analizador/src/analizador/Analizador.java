@@ -5,29 +5,30 @@
  */
 package analizador;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
- *
- * @author miguel
  */
 public class Analizador {
 
-    /**
-     * @param argv the command line arguments
-     */
-    public static void main(String[] argv) {
+    public static void main(String argv[]) {
         if (argv.length == 0) {
-            System.out.println("Inserta nombre de archivo\n" + "( Usage : java Analizador <inputfile> )");
+            System.out.println("Inserta nombre de archivo\n"
+                    + "( Usage : java Analizador <inputfile> )");
         } else {
             for (int i = 0; i < argv.length; i++) {
                 AnalizadorLexico lexico = null;
                 try {
-                    lexico = new AnalizadorLexico(new java.io.FileReader(argv[i]));
+                    lexico
+                            = new AnalizadorLexico(new java.io.FileReader(argv[i]));
                     parser sintactico = new parser(lexico);
-                    Object resultado = sintactico.parse().value;
+                    sintactico.parse();
                 } catch (java.io.FileNotFoundException e) {
                     System.out.println("Archivo \"" + argv[i] + "\" no encontrado.");
                 } catch (java.io.IOException e) {
-                    System.out.println("Error durante la lectura del" + " archivo \"" + argv[i] + "\".");
+                    System.out.println("Error durante la lectura del"
+                            + " archivo \"" + argv[i] + "\".");
                     e.printStackTrace();
                 } catch (Exception e) {
                     System.out.println("Excepcion:");
