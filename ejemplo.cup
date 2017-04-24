@@ -1,0 +1,10 @@
+import java_cup.runtime.*;
+
+terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, true, false, not, numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
+non terminal E, T, S;
+
+A ::= L pComa A | L pComa;  
+L ::= L and J | L or J | L nand J  | L nor | L xor J | L xnor J | J; 
+J ::= pA L pC | true | false | not pA L pC | C;
+C ::= numero igual numero | numero distinto numero | numero menor numero  
+| numero mayor numero | numero menorIgual numero | numero mayorIgual numero;
