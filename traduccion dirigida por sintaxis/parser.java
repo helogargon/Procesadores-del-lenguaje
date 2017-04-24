@@ -341,8 +341,8 @@ class CUP$parser$actions {
 		int n2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-			int v1= Integer.parseInt(n1);
-			int v2=Integer.parseInt(n2);
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
 			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1==v2);
