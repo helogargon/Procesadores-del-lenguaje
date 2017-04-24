@@ -1,0 +1,34 @@
+import java_cup.runtime.*;
+
+terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, truet, falset, not, numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
+non terminal E, T, S;
+
+A ::= L pComa A
+ | L pComa;  
+L ::= L and J
+ | L or J
+ | L nand J
+ | L nor J
+ | L xor J
+ | L xnor J
+ | J; 
+J ::= pA L pC
+ | truet
+ | falset
+ | not pA L pC
+ | C;
+C ::= numero:n1 igual numero:n2 
+		{:
+			int v1= Integer.parseInt(n1);
+			int v2=Integer.parseInt(n2);
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1==v2);
+
+			RESULT=s;
+		:}
+ | numero distinto numero
+ | numero menor numero
+ | numero mayor numero
+ | numero menorIgual numero
+ | numero mayorIgual numero;
