@@ -5,7 +5,14 @@ non terminal A, L, J, C;
 
 A ::= L pComa A
  | L pComa;  
-L ::= L and J
+L ::= L:exp1 and J:exp2
+		{:
+			Simbolo s= new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor=(exp1.valor && exp2.valor);
+
+			RESULT= s;
+		:}
  | L or J
  | L nand J
  | L nor J
