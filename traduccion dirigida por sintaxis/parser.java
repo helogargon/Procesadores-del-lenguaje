@@ -214,7 +214,19 @@ class CUP$parser$actions {
           case 3: // L ::= L and J 
             {
               Object RESULT =null;
+		int exp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int exp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		Object exp1 = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int exp2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int exp2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object exp2 = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		
+			Simbolo s= new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor=(exp1.valor && exp2.valor);
 
+			RESULT= s;
+		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("L",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -322,7 +334,21 @@ class CUP$parser$actions {
           case 15: // C ::= numero igual numero 
             {
               Object RESULT =null;
+		int n1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int n1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		Object n1 = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int n2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int n2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		
+			int v1= Integer.parseInt(n1);
+			int v2=Integer.parseInt(n2);
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1==v2);
 
+			RESULT=s;
+		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("C",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
