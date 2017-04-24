@@ -19,7 +19,6 @@ import java_cup.runtime.*;
 "true"	{return new java_cup.runtime.Symbol(sym.trueT);}
 "false"	{return new java_cup.runtime.Symbol(sym.falseT);}
 "not"	{return new java_cup.runtime.Symbol(sym.not);}
-[0-9]+	{return new java_cup.runtime.Symbol(sym.numero);}
 "=="	{return new java_cup.runtime.Symbol(sym.igual);}
 "!="	{return new java_cup.runtime.Symbol(sym.distinto);}
 "<"	{return new java_cup.runtime.Symbol(sym.menor);}
