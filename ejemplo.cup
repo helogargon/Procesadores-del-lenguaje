@@ -6,5 +6,4 @@ non terminal E, T, S;
 A ::= L pComa A | L pComa;  
 L ::= L and J | L or J | L nand J  | L nor J | L xor J | L xnor J | J; 
 J ::= pA L pC | true | false | not pA L pC | C;
-C ::= numero igual numero | numero distinto numero | numero menor numero  
-| numero mayor numero | numero menorIgual numero | numero mayorIgual numero;
+C ::= numero igual numero | numero distinto numero | numero menor numero | numero mayor numero | numero menorIgual numero | numero mayorIgual numero;
