@@ -3,39 +3,171 @@ import java_cup.runtime.*;
 terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, trueT, falseF, not, numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
 non terminal A, L, J, C;
 
-A ::= L pComa A
- | L pComa;  
-L ::= L:exp1 and J:exp2
+A ::= L:L pComa A:A1
+		{:
+			System.out.println(L.valor+"; "+A.valor);
+		:};
+ | L:L pComa
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_STRING;
+			s.valor= (L.valor+";");
+
+			RESULT=s;
+		:};;  
+L ::= L:L1 and J:J
 		{:
 			Simbolo s= new Simbolo();
 			s.tipo= Simbolo.T_BOOLEAN;
-			s.valor=(exp1.valor && exp2.valor);
+			s.valor=(L1.valor && J.valor);
 
 			RESULT= s;
 		:}
- | L or J
- | L nand J
- | L nor J
- | L xor J
- | L xnor J
- | J; 
-J ::= pA L pC
+ | L:L1 or J:J
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (L1.valor || J.valor);
+
+			RESULT=s;
+		:};
+ | L:L1 nand J:J
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= !(L1.valor && J.valor);
+
+			RESULT=s;
+		:};
+ | L:L1 nor J:J
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= !(L1.valor||J.valor);
+
+			RESULT=s;
+		:};
+ | L:L1 xor J:J
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (L1.valor!=J.valor);
+
+			RESULT=s;
+		:};
+ | L:L1 xnor J:J
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= !(L1.valor!=J.valor);
+
+			RESULT=s;
+		:};
+ | J:J;
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (J.valor);
+
+			RESULT=s;
+		:}; 
+J ::= pA L:L pC
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (L.valor);
+
+			RESULT=s;
+		:};
  | trueT
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (true);
+
+			RESULT=s;
+		:};
  | falseF
- | not pA L pC
- | C;
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (false);
+
+			RESULT=s;
+		:};
+ | not pA L:L pC
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= !(L.valor);
+
+			RESULT=s;
+		:};
+ | C:C
+		{:
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (C.valor);
+
+			RESULT=s;
+		:};
 C ::= numero:n1 igual numero:n2 
 		{:
-			int v1= Integer.parseInt(n1);
-			int v2=Integer.parseInt(n2);
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
 			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1==v2);
 
 			RESULT=s;
 		:}
- | numero distinto numero
- | numero menor numero
- | numero mayor numero
- | numero menorIgual numero
- | numero mayorIgual numero;
+ | numero:n1 distinto numero:n2
+		{:
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1!=v2);
+
+			RESULT=s;
+		:}
+ | numero:n1 menor numero:n2
+		{:
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1<v2);
+
+			RESULT=s;
+		:}
+ | numero:n1 mayor numero:n2
+		{:
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1>v2);
+
+			RESULT=s;
+		:}
+ | numero:n1 menorIgual numero:n2
+		{:
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1<=v2);
+
+			RESULT=s;
+		:}
+ | numero:n1 mayorIgual numero:n2
+		{:
+			int v1= Integer.parseInt(n1.toString());
+			int v2=Integer.parseInt(n2.toString());
+			Simbolo s=new Simbolo();
+			s.tipo= Simbolo.T_BOOLEAN;
+			s.valor= (v1>=v2);
+
+			RESULT=s;
+		:};
