@@ -1,7 +1,22 @@
 import java_cup.runtime.*;
 
-terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, trueT, falseF, not, numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
-non terminal A, L, J, C;
+action code
+{:
+	class Simbolo{
+		boolean valor;
+
+		public Simbolo(){}
+	}
+
+	class SimboloSol{
+		String valor;
+		
+		public SimboloSol(){}
+	}
+:}
+
+terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, trueT, falseF, not,String numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
+non terminal SimboloSol A, Simbolo L, Simbolo J, Simbolo C;
 
 A ::= L:L pComa A:A1
 		{:
@@ -9,8 +24,7 @@ A ::= L:L pComa A:A1
 		:};
  | L:L pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_STRING;
+			SimboloSol s=new SimboloSol();
 			s.valor= (L.valor+";");
 
 			RESULT=s;
@@ -18,7 +32,6 @@ A ::= L:L pComa A:A1
 L ::= L:L1 and J:J
 		{:
 			Simbolo s= new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor=(L1.valor && J.valor);
 
 			RESULT= s;
@@ -26,7 +39,6 @@ L ::= L:L1 and J:J
  | L:L1 or J:J
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (L1.valor || J.valor);
 
 			RESULT=s;
@@ -34,7 +46,6 @@ L ::= L:L1 and J:J
  | L:L1 nand J:J
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= !(L1.valor && J.valor);
 
 			RESULT=s;
@@ -42,7 +53,6 @@ L ::= L:L1 and J:J
  | L:L1 nor J:J
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= !(L1.valor||J.valor);
 
 			RESULT=s;
@@ -50,7 +60,6 @@ L ::= L:L1 and J:J
  | L:L1 xor J:J
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (L1.valor!=J.valor);
 
 			RESULT=s;
@@ -58,7 +67,6 @@ L ::= L:L1 and J:J
  | L:L1 xnor J:J
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= !(L1.valor!=J.valor);
 
 			RESULT=s;
@@ -66,7 +74,6 @@ L ::= L:L1 and J:J
  | J:J;
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (J.valor);
 
 			RESULT=s;
@@ -74,7 +81,6 @@ L ::= L:L1 and J:J
 J ::= pA L:L pC
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (L.valor);
 
 			RESULT=s;
@@ -82,7 +88,6 @@ J ::= pA L:L pC
  | trueT
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (true);
 
 			RESULT=s;
@@ -90,7 +95,6 @@ J ::= pA L:L pC
  | falseF
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (false);
 
 			RESULT=s;
@@ -98,7 +102,6 @@ J ::= pA L:L pC
  | not pA L:L pC
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= !(L.valor);
 
 			RESULT=s;
@@ -106,7 +109,6 @@ J ::= pA L:L pC
  | C:C
 		{:
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (C.valor);
 
 			RESULT=s;
@@ -116,7 +118,6 @@ C ::= numero:n1 igual numero:n2
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1==v2);
 
 			RESULT=s;
@@ -126,7 +127,6 @@ C ::= numero:n1 igual numero:n2
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1!=v2);
 
 			RESULT=s;
@@ -136,7 +136,6 @@ C ::= numero:n1 igual numero:n2
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1<v2);
 
 			RESULT=s;
@@ -146,7 +145,6 @@ C ::= numero:n1 igual numero:n2
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1>v2);
 
 			RESULT=s;
@@ -156,7 +154,6 @@ C ::= numero:n1 igual numero:n2
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1<=v2);
 
 			RESULT=s;
@@ -166,7 +163,6 @@ C ::= numero:n1 igual numero:n2
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
 			Simbolo s=new Simbolo();
-			s.tipo= Simbolo.T_BOOLEAN;
 			s.valor= (v1>=v2);
 
 			RESULT=s;
