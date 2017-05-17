@@ -1,20 +1,5 @@
 import java_cup.runtime.*;
 
-action code
-{:
-	class Simbolo{
-		boolean valor;
-
-		public Simbolo(){}
-	}
-
-	class SimboloSol{
-		String valor;
-		
-		public SimboloSol(){}
-	}
-:}
-
 terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, trueT, falseF, not,String numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
 non terminal SimboloSol A, Simbolo L, Simbolo J, Simbolo C;
 
