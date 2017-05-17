@@ -6,89 +6,49 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int op_sub = 14;
-  public static final int tor = 32;
-  public static final int tuntil = 29;
-  public static final int coma = 6;
-  public static final int igual = 12;
-  public static final int corch_C = 40;
-  public static final int tif = 23;
-  public static final int corch_A = 39;
-  public static final int par_C = 9;
-  public static final int par_A = 8;
-  public static final int constfloat = 19;
-  public static final int menorIgual = 38;
-  public static final int tint = 4;
-  public static final int tfor = 26;
-  public static final int tnot = 31;
-  public static final int tand = 33;
-  public static final int menor = 35;
+  public static final int xnor = 8;
+  public static final int not = 13;
+  public static final int nor = 6;
+  public static final int numero = 14;
+  public static final int menorIgual = 19;
+  public static final int nand = 5;
+  public static final int or = 4;
+  public static final int menor = 17;
+  public static final int pComa = 2;
+  public static final int igual = 15;
   public static final int EOF = 0;
-  public static final int ident = 2;
-  public static final int llave_C = 11;
-  public static final int mayorIgual = 37;
-  public static final int twhile = 27;
-  public static final int tvoid = 3;
-  public static final int llave_A = 10;
+  public static final int pC = 10;
   public static final int error = 1;
-  public static final int op_div = 16;
-  public static final int pcoma = 7;
-  public static final int mayor = 36;
-  public static final int tfloat = 5;
-  public static final int return_ = 21;
-  public static final int punto = 30;
-  public static final int telse = 25;
-  public static final int tstruct = 22;
-  public static final int constint = 18;
-  public static final int op_mul = 15;
-  public static final int tthen = 24;
-  public static final int op_mod = 17;
-  public static final int tdo = 28;
-  public static final int igualIgual = 34;
-  public static final int constlit = 20;
-  public static final int op_sum = 13;
+  public static final int xor = 7;
+  public static final int pA = 9;
+  public static final int mayorIgual = 20;
+  public static final int trueT = 11;
+  public static final int falseF = 12;
+  public static final int distinto = 16;
+  public static final int and = 3;
+  public static final int mayor = 18;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "ident",
-  "tvoid",
-  "tint",
-  "tfloat",
-  "coma",
-  "pcoma",
-  "par_A",
-  "par_C",
-  "llave_A",
-  "llave_C",
+  "pComa",
+  "and",
+  "or",
+  "nand",
+  "nor",
+  "xor",
+  "xnor",
+  "pA",
+  "pC",
+  "trueT",
+  "falseF",
+  "not",
+  "numero",
   "igual",
-  "op_sum",
-  "op_sub",
-  "op_mul",
-  "op_div",
-  "op_mod",
-  "constint",
-  "constfloat",
-  "constlit",
-  "return_",
-  "tstruct",
-  "tif",
-  "tthen",
-  "telse",
-  "tfor",
-  "twhile",
-  "tdo",
-  "tuntil",
-  "punto",
-  "tnot",
-  "tor",
-  "tand",
-  "igualIgual",
+  "distinto",
   "menor",
   "mayor",
-  "mayorIgual",
   "menorIgual",
-  "corch_A",
-  "corch_C"
+  "mayorIgual"
   };
 }
 

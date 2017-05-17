@@ -1,100 +1,88 @@
 import java_cup.runtime.*;
 
-terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, trueT, falseF, not,String numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
-non terminal SimboloSol A, Simbolo L, Simbolo J, Simbolo C;
+terminal pComa, and, or, nand, nor, xor, xnor, pA, pC, trueT, falseF, not,numero, igual, distinto, menor, mayor, menorIgual, mayorIgual;
+non terminal String A, L, J, C;
 
-A ::= L:L pComa A:A1
+A ::= L:L1 pComa A:A1 pComa
 		{:
-			System.out.println(L.valor+"; "+A.valor);
-		:};
- | L:L pComa
+			System.out.println(L1+"; "+A);
+		:}
+ | L:L1 pComa
 		{:
-			SimboloSol s=new SimboloSol();
-			s.valor= (L.valor+";");
+			String s;
+			s= (L1+";");
 
 			RESULT=s;
-		:};;  
-L ::= L:L1 and J:J
+		:};  
+L ::= L:L1 and J:J1 pComa
 		{:
-			Simbolo s= new Simbolo();
-			s.valor=(L1.valor && J.valor);
+			boolean s=(L1 && J1);
 
 			RESULT= s;
 		:}
- | L:L1 or J:J
+ | L:L1 or J:J1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (L1.valor || J.valor);
+			boolean s= (L1 || J1);
 
 			RESULT=s;
-		:};
- | L:L1 nand J:J
+		:}
+ | L:L1 nand J:J1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= !(L1.valor && J.valor);
+			boolean s= !(L1 && J1);
 
 			RESULT=s;
-		:};
- | L:L1 nor J:J
+		:}
+ | L:L1 nor J:J1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= !(L1.valor||J.valor);
+			boolean s= !(L1||J1);
 
 			RESULT=s;
-		:};
- | L:L1 xor J:J
+		:}
+ | L:L1 xor J:J1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (L1.valor!=J.valor);
+			boolean s= (L1!=J1);
 
 			RESULT=s;
-		:};
- | L:L1 xnor J:J
+		:}
+ | L:L1 xnor J:J1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= !(L1.valor!=J.valor);
+			boolean s= !(L1.!=J1);
 
 			RESULT=s;
-		:};
- | J:J;
+		:}
+ | J:J1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (J.valor);
+			boolean s= (J1);
 
 			RESULT=s;
 		:}; 
-J ::= pA L:L pC
+J ::= pA L:L1 pC pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (L.valor);
+			boolean s= (L1);
 
 			RESULT=s;
-		:};
- | trueT
+		:}
+ | trueT pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (true);
+			boolean s= (true);
 
 			RESULT=s;
-		:};
- | falseF
+		:}
+ | falseF pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (false);
+			boolean s= (false);
 
 			RESULT=s;
-		:};
- | not pA L:L pC
+		:}
+ | not pA L:L1 pC pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= !(L.valor);
+			boolean s= !(L1);
 
 			RESULT=s;
-		:};
- | C:C
+		:}
+ | C:C1 pComa
 		{:
-			Simbolo s=new Simbolo();
-			s.valor= (C.valor);
+			boolean s= (C1);
 
 			RESULT=s;
 		:};
@@ -102,8 +90,7 @@ C ::= numero:n1 igual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			Simbolo s=new Simbolo();
-			s.valor= (v1==v2);
+			boolean s= (v1==v2);
 
 			RESULT=s;
 		:}
@@ -111,8 +98,7 @@ C ::= numero:n1 igual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			Simbolo s=new Simbolo();
-			s.valor= (v1!=v2);
+			booleans= (v1!=v2);
 
 			RESULT=s;
 		:}
@@ -120,8 +106,7 @@ C ::= numero:n1 igual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			Simbolo s=new Simbolo();
-			s.valor= (v1<v2);
+			booleans= (v1<v2);
 
 			RESULT=s;
 		:}
@@ -129,8 +114,7 @@ C ::= numero:n1 igual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			Simbolo s=new Simbolo();
-			s.valor= (v1>v2);
+			booleans= (v1>v2);
 
 			RESULT=s;
 		:}
@@ -138,8 +122,7 @@ C ::= numero:n1 igual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			Simbolo s=new Simbolo();
-			s.valor= (v1<=v2);
+			booleans= (v1<=v2);
 
 			RESULT=s;
 		:}
@@ -147,8 +130,7 @@ C ::= numero:n1 igual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			Simbolo s=new Simbolo();
-			s.valor= (v1>=v2);
+			boolean s= (v1>=v2);
 
 			RESULT=s;
 		:};
