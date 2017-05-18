@@ -1,18 +1,27 @@
 import java_cup.runtime.*;
 import java.io.*;
-parser code
+import java.util.*;
+
+action code
 {:
 	private BufferedWriter bw;
+	private LinkedList<String> cabeceras=new LinkedList();
 
 	public void inicio(String nombre){
-		System.out.println(nombre);
 
-		/*try{
-			//bw = new BufferedWriter(new FileWriter(nombre+".html"));
-			//bw.write();
+		try{
+			bw = new BufferedWriter(new FileWriter(nombre+".html"));
+			bw.write("holis");
 		}catch(IOException ioe){
 			System.out.println("File not exist");
-		}*/
+		}
+	}
+	public void imprimir(){
+		System.out.println("<ul>");
+		for(int i=0;i<cabeceras.size();i++){
+			System.out.println("<li><a href=\""+i+"\">"+cabeceras.get(i)+"</a></li>");
+		}
+		System.out.println("</ul>");
 	}
 :};
 
