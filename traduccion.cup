@@ -7,7 +7,7 @@ action code
 	private BufferedWriter bw;
 	private LinkedList<String> cabeceras=new LinkedList();
 
-	public void inicio(String nombre){
+	public void imprimir(String nombre){
 
 		try{
 			bw = new BufferedWriter(new FileWriter(nombre+".html"));
@@ -15,13 +15,21 @@ action code
 		}catch(IOException ioe){
 			System.out.println("File not exist");
 		}
-	}
-	public void imprimir(){
-		System.out.println("<ul>");
+		
+		bw.write("<html><title>"+nombre+"</title><body><h1>"+nombre+"</h1>");		
+		
+		//Cabeceras
+		bw.write("<ul>");
 		for(int i=0;i<cabeceras.size();i++){
-			System.out.println("<li><a href=\""+i+"\">"+cabeceras.get(i)+"</a></li>");
+			bw.write("<li><a href=\""+i+"\">"+cabeceras.get(i)+"</a></li>");
 		}
-		System.out.println("</ul>");
+		bw.write("</ul>");
+
+		//Clausura html
+		try{
+			bw.write("</body>\n</html>");
+			bw.close();
+		}catch(IOException ioe){System.out.println("Error");}
 	}
 :};
 
