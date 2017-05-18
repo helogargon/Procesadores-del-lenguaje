@@ -5,7 +5,7 @@ non terminal String A, L, J, C;
 
 A ::= L:L1 pComa A:A1 pComa
 		{:
-			System.out.println(L1+"; "+A);
+			System.out.println(L1+"; "+A1);
 		:}
  | L:L1 pComa
 		{:
@@ -16,115 +16,118 @@ A ::= L:L1 pComa A:A1 pComa
 		:};  
 L ::= L:L1 and J:J1 pComa
 		{:
-			boolean s=(L1 && J1);
+			boolean s=(Boolean.parseBoolean(L1) && Boolean.parseBoolean(J1));
 
-			RESULT= s;
+			RESULT= Boolean.toString(s);
 		:}
  | L:L1 or J:J1 pComa
 		{:
-			boolean s= (L1 || J1);
+			boolean s= (Boolean.parseBoolean(L1) || Boolean.parseBoolean(J1));
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | L:L1 nand J:J1 pComa
 		{:
-			boolean s= !(L1 && J1);
+			boolean s= !(Boolean.parseBoolean(L1) && Boolean.parseBoolean(J1));
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | L:L1 nor J:J1 pComa
 		{:
-			boolean s= !(L1||J1);
+			boolean s= !(Boolean.parseBoolean(L1) || Boolean.parseBoolean(J1));
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | L:L1 xor J:J1 pComa
 		{:
-			boolean s= (L1!=J1);
+			boolean s= (Boolean.parseBoolean(L1) != Boolean.parseBoolean(J1));
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | L:L1 xnor J:J1 pComa
 		{:
-			boolean s= !(L1.!=J1);
+			boolean s= !(Boolean.parseBoolean(L1) != Boolean.parseBoolean(J1));
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | J:J1 pComa
 		{:
-			boolean s= (J1);
+			boolean s= Boolean.parseBoolean(J1);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}; 
 J ::= pA L:L1 pC pComa
 		{:
-			boolean s= (L1);
+			boolean s= Boolean.parseBoolean(L1);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | trueT pComa
 		{:
 			boolean s= (true);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | falseF pComa
 		{:
 			boolean s= (false);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | not pA L:L1 pC pComa
 		{:
-			boolean s= !(L1);
+			boolean s= ! Boolean.parseBoolean(L1);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | C:C1 pComa
 		{:
-			boolean s= (C1);
+			boolean s= Boolean.parseBoolean(C1);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:};
 C ::= numero:n1 igual numero:n2 
 		{:
+			System.out.println(n1);			
 			int v1= Integer.parseInt(n1.toString());
+			System.out.println(v1);
 			int v2=Integer.parseInt(n2.toString());
+			System.out.println(v2);
 			boolean s= (v1==v2);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | numero:n1 distinto numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			booleans= (v1!=v2);
+			boolean s= (v1!=v2);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | numero:n1 menor numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			booleans= (v1<v2);
+			boolean s= (v1<v2);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | numero:n1 mayor numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			booleans= (v1>v2);
+			boolean s= (v1>v2);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | numero:n1 menorIgual numero:n2
 		{:
 			int v1= Integer.parseInt(n1.toString());
 			int v2=Integer.parseInt(n2.toString());
-			booleans= (v1<=v2);
+			boolean s= (v1<=v2);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:}
  | numero:n1 mayorIgual numero:n2
 		{:
@@ -132,5 +135,5 @@ C ::= numero:n1 igual numero:n2
 			int v2=Integer.parseInt(n2.toString());
 			boolean s= (v1>=v2);
 
-			RESULT=s;
+			RESULT= Boolean.toString(s);
 		:};

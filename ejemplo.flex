@@ -17,7 +17,7 @@ import java_cup.runtime.*;
 "("	{return new java_cup.runtime.Symbol(sym.pA);}
 ")"	{return new java_cup.runtime.Symbol(sym.pC);}
 "true"	{return new java_cup.runtime.Symbol(sym.trueT);}
-"false"	{return new java_cup.runtime.Symbol(sym.falseT);}
+"false"	{return new java_cup.runtime.Symbol(sym.falseF);}
 "not"	{return new java_cup.runtime.Symbol(sym.not);}
 "=="	{return new java_cup.runtime.Symbol(sym.igual);}
 "!="	{return new java_cup.runtime.Symbol(sym.distinto);}
