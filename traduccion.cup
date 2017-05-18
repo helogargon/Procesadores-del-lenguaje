@@ -11,25 +11,24 @@ action code
 
 		try{
 			bw = new BufferedWriter(new FileWriter(nombre+".html"));
-			bw.write("holis");
+			
+			bw.write("<html><title>"+nombre+"</title><body><h1>"+nombre+"</h1>");		
+		
+			//Cabeceras
+			bw.write("<ul>");
+			for(int i=0;i<cabeceras.size();i++){
+				bw.write("<li><a href=\""+i+"\">"+cabeceras.get(i)+"</a></li>");
+			}
+			bw.write("</ul>");
+
+			//Clausura html
+			bw.write("</body>\n</html>");
+			bw.close();
 		}catch(IOException ioe){
 			System.out.println("File not exist");
 		}
 		
-		bw.write("<html><title>"+nombre+"</title><body><h1>"+nombre+"</h1>");		
 		
-		//Cabeceras
-		bw.write("<ul>");
-		for(int i=0;i<cabeceras.size();i++){
-			bw.write("<li><a href=\""+i+"\">"+cabeceras.get(i)+"</a></li>");
-		}
-		bw.write("</ul>");
-
-		//Clausura html
-		try{
-			bw.write("</body>\n</html>");
-			bw.close();
-		}catch(IOException ioe){System.out.println("Error");}
 	}
 :};
 
@@ -43,19 +42,19 @@ precedence left tor, tand;
 PROGRAM ::=PART PROGRAM
  | PART;
 
-PART::= TYPE RESTPART
- | tstruct ident:name{:cabeceras.add(name.toString());:} llave_A LFIELD llave_C pcoma;
+PART::= TYPE:tipo RESTPART:restpart{:cabeceras.add(tipo.toString()+" "+restpart.toString());:}
+ | tstruct ident llave_A LFIELD llave_C pcoma;
 
-RESTPART::= ident:name{:cabeceras.add(name.toString());:} par_A LISTPARAM par_C BLQ;
+RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT=name.toString()+"("+param.toString()+")";:} ;
 
 BLQ::= llave_A SENTLIST llave_C;
 
-LISTPARAM::= LISTPARAM coma TYPE ident
- | TYPE ident;
+LISTPARAM::= LISTPARAM:param coma TYPE:tipo ident:i{:RESULT=param.toString()+", "+tipo.toString()+" "+i.toString();:}
+ | TYPE:tipo ident:i{:RESULT=tipo.toString()+" "+i.toString();:};
 
 TYPE::= tvoid
- | tint
- | tfloat;
+ | tint{:RESULT="int";:}
+ | tfloat{:RESULT="float";:};
 
 SENTLIST::= SENTLIST SENT
  | SENT;
