@@ -1,6 +1,9 @@
 # Procesadores-del-lenguaje
 Normas generales:
 
+
+
+
 La práctica se podrá realizar en grupos de, como máximo, 3 personas. La puntuación obtenida no depende del número de integrantes del grupo, tampoco tiene por qué ser igual para todos los integrantes.
 
 No se permite la integración de personas en un grupo después de la primera entrega.
