@@ -70,11 +70,11 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "or"	{return new java_cup.runtime.Symbol(sym.tor);}
 "and"	{return new java_cup.runtime.Symbol(sym.tand);}
 
-{ident}	{return new java_cup.runtime.Symbol(sym.ident);}
+{ident}	{return new java_cup.runtime.Symbol(sym.ident, yytext());}
 
-{constfloat} {return new java_cup.runtime.Symbol(sym.constfloat);}
+{constfloat} {return new java_cup.runtime.Symbol(sym.constfloat, yytext());}
 
-{constint} {return new java_cup.runtime.Symbol(sym.constint);}
+{constint} {return new java_cup.runtime.Symbol(sym.constint, yytext());}
 
 "'".*"'"	{yypushback(yylength()-1);yybegin(ENTRECOMILLADO);}
 

@@ -7,15 +7,16 @@ non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID,
 precedence left op_mul, op_div, op_mod, op_sum, op_sub;
 precedence left tor, tand;
 
-PROGRAM ::= PART PROGRAM {::}| PART;{::}
-PART::= TYPE RESTPART{::}| tstruct ident llave_A LFIELD llave_C pcoma;{::}
-RESTPART::= ident par_A LISTPARAM par_C BLQ;{::}
-BLQ::= llave_A SENTLIST llave_C;{::}
-LISTPARAM::= LISTPARAM coma TYPE ident {::}| TYPE ident;{::}
-TYPE::= tvoid {::}| tint{::} | tfloat;{::}
+S::= {:System.out.println("<!DOCTYPE html>"); System.out.println("<html>"); System.out.println("<head>"); System.out.println("<title></title>"); System.out.println("</head>"); System.out.println("<body>");:} PROGRAM {:System.out.println("</body>");System.out.println("</html>"):};
+PROGRAM ::= PART PROGRAM | PART;
+PART::= TYPE RESTPART | tstruct ident llave_A LFIELD llave_C pcoma;
+RESTPART::= ident par_A LISTPARAM par_C {:System.out.prinln();:} BLQ;
+BLQ::= llave_A SENTLIST llave_C;
+LISTPARAM::= LISTPARAM coma TYPE ident | TYPE ident;
+TYPE::= tvoid | tint | tfloat;
 
-SENTLIST::= SENTLIST SENT {::}| SENT;{::}
-SENT::= TYPE LID pcoma {::}| ID igual EXP pcoma {::}| ident par_A LEXP par_C pcoma | return_ EXP pcoma | tif par_A LCOND par_C tthen BLQ telse BLQ | tfor par_A ident igual EXP pcoma LCOND pcoma ident igual EXP par_C BLQ | twhile par_A LCOND par_C BLQ | tdo BLQ tuntil par_A LCOND par_C | BLQ;
+SENTLIST::= SENTLIST SENT | SENT;
+SENT::= TYPE LID pcoma | ID igual EXP pcoma | ident par_A LEXP par_C pcoma | return_ EXP pcoma | tif par_A LCOND par_C tthen BLQ telse BLQ | tfor par_A ident igual EXP pcoma LCOND pcoma ident igual EXP par_C BLQ | twhile par_A LCOND par_C BLQ | tdo BLQ tuntil par_A LCOND par_C | BLQ;
 LID::= ID | LID coma ID;
 LEXP::= EXP | LEXP coma EXP;
 EXP::= EXP OP EXP | FACTOR;
