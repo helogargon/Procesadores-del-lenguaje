@@ -592,7 +592,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 26: break;
           case 7: 
-            { return new java_cup.runtime.Symbol(sym.numero);
+            { return new java_cup.runtime.Symbol(sym.numero, yytext());
             }
           case 27: break;
           case 8: 

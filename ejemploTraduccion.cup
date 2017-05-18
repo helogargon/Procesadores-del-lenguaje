@@ -94,6 +94,7 @@ C ::= numero:n1 igual numero:n2
 			int v2=Integer.parseInt(n2.toString());
 			System.out.println(v2);
 			boolean s= (v1==v2);
+			System.out.println(s);
 
 			RESULT= Boolean.toString(s);
 		:}

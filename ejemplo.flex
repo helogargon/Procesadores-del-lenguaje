@@ -25,7 +25,7 @@ import java_cup.runtime.*;
 ">"	{return new java_cup.runtime.Symbol(sym.mayor);}
 "=<"	{return new java_cup.runtime.Symbol(sym.menorIgual);}
 "=>"	{return new java_cup.runtime.Symbol(sym.mayorIgual);}
-[0-9]+	{return new java_cup.runtime.Symbol(sym.numero);}
+[0-9]+	{return new java_cup.runtime.Symbol(sym.numero, yytext());}
 
 /*errorfallback*/
 [^]|\n	{;}
