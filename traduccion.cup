@@ -4,28 +4,70 @@ import java.util.*;
 
 action code
 {:
+	public class Funcion{
+		private int i;//identificador unico para cada funcion
+		private String cabecera;
+		private LinkedList<String> sentencias= new LinkedList(); //incluye la sentencia y el estilo especial de la misma
+		
+		public Funcion (){
+		}
+		public void addSentencia(String sent){
+			this.sentencias.add(sent);
+		}
+		public void setI(int i){
+			this.i= i;
+		}
+		public void setCabecera(String cab){
+			this.cabecera=cab;
+		}
+		public String cabeceraToString(){
+			return "<li><a href=\"#"+i+"\">"+cabecera+"</a></li>";
+		}
+		public String toStringFuncion(){
+			String devolver = "<a name=\""+i+"\">"+cabecera+"{</a>"+ 
+					"<br/>" +
+					
+					"}<br/>"+
+					"<a href=\"#inicio\">Inicio</a>" +
+					"<br/>" +
+					"<a href=\"#"+i+"\">Volver a inicio de funci&oacute;n</a>"+
+					"<br/>";
+
+			return devolver;
+			
+		}
+		
+	}
 	private BufferedWriter bw;
-	private LinkedList<String> cabeceras=new LinkedList();
+	private LinkedList<Funcion> cabeceras=new LinkedList();
+	private LinkedList<String> estructuras=new LinkedList();
 
 	public void imprimir(String nombre){
-		String n = nombre.substring(0, nombre.length()-4);
+
 		try{
-			bw = new BufferedWriter(new FileWriter(n+".html"));
+			bw = new BufferedWriter(new FileWriter(nombre+".html"));
 			
 
-			bw.write("<html><title>"+n+"</title><body><h1>Programa "+n+"</h1>");
+			bw.write("<html><title>"+nombre+"</title><body><h1><a name=\"inicio\">Programa "+nombre+"</a></h1>");
 			
-			bw.write("<h2>Funciones</h>");		
+			bw.write("<h2>Funciones</h2>");		
 
 			//Cabeceras
 			bw.write("<ul>");
 			for(int i=0;i<cabeceras.size();i++){
-				bw.write("<li><a href=\""+i+"\">"+cabeceras.get(i)+"</a></li>");
+				cabeceras.get(i).setI(i);
+				bw.write(cabeceras.get(i).cabeceraToString());
 			}
 			bw.write("</ul>");
+			bw.write("<hr/>");
+			for(int i=0;i<cabeceras.size();i++){
+				bw.write(cabeceras.get(i).toStringFuncion());
+			}
 
+			
 			//Clausura html
 			bw.write("</body>\n</html>");
+
 			bw.close();
 		}catch(IOException ioe){
 			System.out.println("File not exist");
@@ -44,8 +86,8 @@ precedence left tor, tand;
 
 PROGRAM ::=PART PROGRAM
  | PART;
-PART::= TYPE:tipo RESTPART:restpart{:cabeceras.add(tipo+" "+restpart);:}
- | tstruct ident:name llave_A LFIELD llave_C pcoma{:cabeceras.add("struct "+name.toString()+"("+lfield+")");:};
+PART::= TYPE:tipo RESTPART:restpart{:Funcion f = new Funcion(); f.setCabecera(tipo+" "+restpart);cabeceras.add(f);:}
+ | tstruct ident:name llave_A LFIELD:lfield llave_C pcoma{:estructuras.add("struct "+name.toString()+"("+lfield+")");:};
 
 RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT=name.toString()+"("+param+")";:} ;
 
