@@ -56,7 +56,7 @@ public class DDS {
                     lexico = new AnalizadorLexico(new java.io.FileReader(args[i]));
                     parser sintactico = new parser(lexico);
 		    sintactico.parse();
-                    sintactico.action_obj.imprimir();
+                    sintactico.action_obj.imprimir(args[i]);
                 } catch (java.io.FileNotFoundException e) {
                     System.out.println("Archivo \"" + args[i] + "\" no encontrado.");
                 } catch (java.io.IOException e) {
