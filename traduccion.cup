@@ -8,12 +8,12 @@ action code
 	private LinkedList<String> cabeceras=new LinkedList();
 
 	public void imprimir(String nombre){
-
+		String n = nombre.substring(0, nombre.length()-4);
 		try{
-			bw = new BufferedWriter(new FileWriter(nombre+".html"));
+			bw = new BufferedWriter(new FileWriter(n+".html"));
 			
 
-			bw.write("<html><title>"+nombre+"</title><body><h1>Programa "+nombre+"</h1>");
+			bw.write("<html><title>"+n+"</title><body><h1>Programa "+n+"</h1>");
 			
 			bw.write("<h2>Funciones</h>");		
 
