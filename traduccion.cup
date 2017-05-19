@@ -12,8 +12,11 @@ action code
 		try{
 			bw = new BufferedWriter(new FileWriter(nombre+".html"));
 			
-			bw.write("<html><title>"+nombre+"</title><body><h1>Programa "+nombre+"</h1>");		
-		
+
+			bw.write("<html><title>"+nombre+"</title><body><h1>Programa "+nombre+"</h1>");
+			
+			bw.write("<h2>Funciones</h>");		
+
 			//Cabeceras
 			bw.write("<ul>");
 			for(int i=0;i<cabeceras.size();i++){
@@ -41,7 +44,6 @@ precedence left tor, tand;
 
 PROGRAM ::=PART PROGRAM
  | PART;
-
 PART::= TYPE:tipo RESTPART:restpart{:cabeceras.add(tipo+" "+restpart);:}
  | tstruct ident:name llave_A LFIELD llave_C pcoma{:cabeceras.add("struct "+name.toString()+"("+lfield+")");:};
 
