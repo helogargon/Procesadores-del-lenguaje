@@ -12,7 +12,7 @@ action code
 		try{
 			bw = new BufferedWriter(new FileWriter(nombre+".html"));
 			
-			bw.write("<html><title>"+nombre+"</title><body><h1>"+nombre+"</h1>");		
+			bw.write("<html><title>"+nombre+"</title><body><h1>Programa "+nombre+"</h1>");		
 		
 			//Cabeceras
 			bw.write("<ul>");
