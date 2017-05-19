@@ -28,7 +28,7 @@ action code
 			for (String sent: this.sentencias){
 				sentencias = sentencias + sent + "<br/>";
 			}
-			String devolver = "<a name=\""+i+"\">"+cabecera+"{</a>"+ 
+			String devolver = "<hr/><a name=\""+i+"\">"+cabecera+"{</a>"+ 
 					"<br/><div style=\"text-indent: 2 cm\"><code>" +
 					sentencias +
 					"</code></div>}<br/>"+
@@ -104,7 +104,6 @@ action code
 				bw.write(cabeceras.get(i).cabeceraToString());
 			}
 			bw.write("</ul>");
-			bw.write("<hr/>");
 			for(int i=0;i<cabeceras.size();i++){
 				bw.write(cabeceras.get(i).toStringFuncion());
 			}
@@ -134,9 +133,9 @@ precedence left tor, tand;
 PROGRAM ::=PART PROGRAM
  | PART;
 PART::= TYPE:tipo {:Funcion f = new Funcion();cabeceras.add(f);:} RESTPART:restpart{:cabeceras.getLast().setCabecera(tipo+" "+restpart);:}
- | tstruct ident:name {:Estructura e = new Estructura(); e.setCabecera("<span class =\"palres\">struct</span> "+"<span class =\"palres\">"+ name.toString()+"</span>");estructuras.add(e);:} llave_A LFIELD:lfield llave_C pcoma;
+ | tstruct ident:name {:Estructura e = new Estructura(); e.setCabecera("<span class =\"palres\">struct</span> "+"<span class =\"ident\">"+ name.toString()+"</span>");estructuras.add(e);:} llave_A LFIELD:lfield llave_C pcoma;
 
-RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT="<span class =\"palres\">"+ name.toString()+"</span>"+"("+param+")";:} ;
+RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT="<span class =\"ident\">"+ name.toString()+"</span>"+"("+param+")";:} ;
 
 BLQ::= llave_A SENTLIST llave_C;
 
@@ -185,9 +184,9 @@ FACTOR::= ident:id par_A LEXP:lexp par_C{:RESULT="<span class =\"palres\">"+ id.
 LFIELD ::=LFIELD:lfield TYPE:tipo {:lista="";:} LID pcoma{:estructuras.getLast().addSentencia(tipo+" " +lista+";<br/>");:}
   | TYPE:tipo LID pcoma{:estructuras.getLast().addSentencia(tipo+" " +lista+";</br>");:};
 
-ID ::= ident:name{:RESULT="<span class =\"palres\">"+ name.toString()+"</span>";:}
- | ident:name1 punto ident:name2{:RESULT="<span class =\"palres\">"+ name1.toString()+"</span>"+"."+"<span class =\"palres\">"+ name2.toString()+"</span>";:}
- | ident:name LDIM:ldmi {:RESULT="<span class =\"palres\">"+ name.toString()+"</span>"+" "+ldmi;:};
+ID ::= ident:name{:RESULT="<span class =\"ident\">"+ name.toString()+"</span>";:}
+ | ident:name1 punto ident:name2{:RESULT="<span class =\"ident\">"+ name1.toString()+"</span>"+"."+"<span class =\"ident\">"+ name2.toString()+"</span>";:}
+ | ident:name LDIM:ldmi {:RESULT="<span class =\"ident\">"+ name.toString()+"</span>"+" "+ldmi;:};
 
 LCOND ::= LCOND:lcond1 OPL:opl1 LCOND:lcond2{:RESULT=lcond1+""+opl1+lcond2;:}
  | COND:cond{:RESULT=cond;:}
@@ -204,5 +203,5 @@ OPR::= igualIgual{:RESULT="==";:}
  | mayorIgual{:RESULT="&gt;=";:}
  | menorIgual{:RESULT="&lt;=";:};
 
-LDIM ::= LDIM corch_A constint corch_C
-| corch_A constint corch_C;
+LDIM ::= LDIM:ldim corch_A constint:constante corch_C{:RESULT=ldim+"["+"<span class=\"cte\">"+constante.toString()+ "</span>"+"]";:}
+| corch_A constint:constante corch_C{:RESULT="["+"<span class=\"cte\">"+constante.toString()+ "</span>"+"]";:};

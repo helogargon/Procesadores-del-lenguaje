@@ -1,6 +1,6 @@
 struct Books{
 	int hola;
-	int adios;
+	int adios[10];
 };
 int mul (int v1, int v2){
 	int aux;
