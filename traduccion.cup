@@ -42,17 +42,17 @@ precedence left tor, tand;
 PROGRAM ::=PART PROGRAM
  | PART;
 
-PART::= TYPE:tipo RESTPART:restpart{:cabeceras.add(tipo.toString()+" "+restpart.toString());:}
- | tstruct ident llave_A LFIELD llave_C pcoma;
+PART::= TYPE:tipo RESTPART:restpart{:cabeceras.add(tipo+" "+restpart);:}
+ | tstruct ident:name llave_A LFIELD llave_C pcoma{:cabeceras.add("struct "+name.toString()+"("+lfield+")");:};
 
-RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT=name.toString()+"("+param.toString()+")";:} ;
+RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT=name.toString()+"("+param+")";:} ;
 
 BLQ::= llave_A SENTLIST llave_C;
 
-LISTPARAM::= LISTPARAM:param coma TYPE:tipo ident:i{:RESULT=param.toString()+", "+tipo.toString()+" "+i.toString();:}
- | TYPE:tipo ident:i{:RESULT=tipo.toString()+" "+i.toString();:};
+LISTPARAM::= LISTPARAM:param coma TYPE:tipo ident:name{:RESULT=param+", "+tipo+" "+name.toString();:}
+ | TYPE:tipo ident:name{:RESULT=tipo+" "+name.toString();:};
 
-TYPE::= tvoid
+TYPE::= tvoid{:RESULT="void";:}
  | tint{:RESULT="int";:}
  | tfloat{:RESULT="float";:};
 
@@ -114,6 +114,6 @@ OPR::= igualIgual
  | menorIgual;
 
 LDIM ::= LDIM corch_A constint corch_C
- | corch_A constint corch_C;
+| corch_A constint corch_C;
 
 
