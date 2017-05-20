@@ -1,0 +1,7 @@
+float restar(float t){
+	int $minuendo;
+	int $sustraendo;
+	int $diferencia;
+	$diferencia = $minuendo - $sustraendo;
+	return $diferencia;
+}

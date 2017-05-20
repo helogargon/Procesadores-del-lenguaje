@@ -1,0 +1,16 @@
+int menor (int i1, int i2){
+    if (i1 < i2) then
+        return i1;
+    else
+        return i2;
+}
+
+void main (int args){
+	int i1;
+	i1 = 3;
+        int i2;
+        i2 = 7;
+        int i3;
+        i3 = menor(i1, i2);
+	printf(i3);
+}
