@@ -1,0 +1,4 @@
+void calcular(int i5, int i6){
+	int i8
+	i7=i5+i6;
+}

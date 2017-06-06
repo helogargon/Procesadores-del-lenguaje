@@ -81,7 +81,7 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 "//".*	{System.out.println(yytext());}
 
 "/*".*	{System.out.print("/*");yybegin(COMENTARIO);yypushback(yylength()-2);}
-\n {System.out.print(yytext());}
+\n {;}
 [^] {;}	
 }
 

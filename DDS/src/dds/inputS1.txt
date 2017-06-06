@@ -1,10 +1,6 @@
-struct Books{
-	int hola;
-	int adios[10];
-};
 int mul (int v1, int v2){
 	int aux;
-	aux = 0;
+	aux = 0x-07.A4;
 	int i;
 	for (i = 0; i < v1; i = i + 1) {
 		aux = aux + v2;
