@@ -418,7 +418,6 @@ class CUP$parser$actions {
 		try{
 			bw = new BufferedWriter(new FileWriter(nombre+".html"));
 			
-
 			bw.write("<html><title>"+nombre+"</title><body><h1><a name=\"inicio\">Programa "+nombre+"</a></h1>");
 			
 			bw.write("<h2>Funciones</h2>");		

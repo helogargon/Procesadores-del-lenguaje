@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 public class Analizador {
 
     public static void main(String argv[]) {
-        /*if (argv.length == 0) {
+        if (argv.length == 0) {
             System.out.println("Inserta nombre de archivo\n"
                     + "( Usage : java Analizador <inputfile> )");
         } else {
@@ -35,8 +35,8 @@ public class Analizador {
                 }
             }
         }
-        */
-        AnalizadorLexico lexico = null;
+        
+        /*AnalizadorLexico lexico = null;
                 try {
                     lexico = new AnalizadorLexico(new java.io.FileReader("C:\\Users\\Helena\\Documents\\GitHub\\Procesadores-del-lenguaje\\DDS\\src\\dds\\inputS1.txt"));
                     parser sintactico = new parser(lexico);
@@ -50,6 +50,6 @@ public class Analizador {
                 } catch (Exception e) {
                     System.out.println("Excepcion:");
                     e.printStackTrace();
-                }
+                }*/
     }
 }
