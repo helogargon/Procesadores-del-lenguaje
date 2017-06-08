@@ -36,20 +36,5 @@ public class Analizador {
             }
         }
         
-        /*AnalizadorLexico lexico = null;
-                try {
-                    lexico = new AnalizadorLexico(new java.io.FileReader("C:\\Users\\Helena\\Documents\\GitHub\\Procesadores-del-lenguaje\\DDS\\src\\dds\\inputS1.txt"));
-                    parser sintactico = new parser(lexico);
-                    sintactico.parse();
-                } catch (java.io.FileNotFoundException e) {
-                    System.out.println("Archivo \"" + "input" + "\" no encontrado.");
-                } catch (java.io.IOException e) {
-                    System.out.println("Error durante la lectura del"
-                            + " archivo \"" + "input" + "\".");
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    System.out.println("Excepcion:");
-                    e.printStackTrace();
-                }*/
     }
 }
