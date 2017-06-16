@@ -72,9 +72,9 @@ constfloat= {decfloat}|{octfloat}|{hexfloat}
 
 {ident}	{return new java_cup.runtime.Symbol(sym.ident, yytext());}
 
-{constfloat} {return new java_cup.runtime.Symbol(sym.constfloat, yytext());}
+{constfloat} {yybegin(YYINITIAL);return new java_cup.runtime.Symbol(sym.constfloat, yytext());}
 
-{constint} {return new java_cup.runtime.Symbol(sym.constint, yytext());}
+{constint} {yybegin(YYINITIAL);return new java_cup.runtime.Symbol(sym.constint, yytext());}
 
 "'".*"'"	{yypushback(yylength()-1);yybegin(ENTRECOMILLADO);}
 
