@@ -93,7 +93,7 @@ action code
 			bw = new BufferedWriter(new FileWriter(nombre+".html"));
 			
 
-			bw.write("<html><title>"+nombre+"</title><body><h1><a name=\"inicio\">Programa "+nombre+"</a></h1>");
+			bw.write("<html><head><title>"+nombre+"</title><style>.cte {color:rgb(19,189,72);}.ident {color:rgb(55,40,244);}.palres {color:rgb(0,0,0);font-weight:bold;}</style></head><body><h1><a name=\"inicio\">Programa "+nombre+"</a></h1>");
 			
 			bw.write("<h2>Funciones</h2>");		
 
@@ -124,7 +124,7 @@ action code
 	}
 :};
 
-terminal ident, tvoid, tint, tfloat, coma, pcoma, par_A, par_C, llave_A, llave_C, igual, op_sum, op_sub, op_mul, op_div, op_mod, constint, constfloat, constlit, return_, tstruct, tif,tthen,telse,tfor,twhile,tdo,tuntil,punto,tnot,tor,tand,igualIgual,menor,mayor,mayorIgual,menorIgual,corch_A,corch_C;
+terminal ident, tvoid, tint, tfloat, coma, pcoma, par_A, par_C, llave_A, llave_C, igual, op_sum, op_sub, op_mul, op_div, op_mod, operacion,constint, constfloat, constlit, return_, tstruct, tif,tthen,telse,tfor,twhile,tdo,tuntil,punto,tnot,tor,tand,igualIgual,menor,mayor,mayorIgual,menorIgual,corch_A,corch_C;
 non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID, EXP, LEXP, OP, FACTOR, LFIELD, ID, LCOND, OPL, COND, OPR, LDIM;
 
 
@@ -179,7 +179,8 @@ FACTOR::= ident:id par_A LEXP:lexp par_C{:RESULT="<span class =\"palres\">"+ id.
  | ID:id{:RESULT=id;:}
  | constint:constanteint{:RESULT="<span class=\"cte\">"+constanteint.toString()+ "</span>";:}
  | constfloat:constantefloat{:RESULT= "<span class=\"cte\">"+constantefloat.toString()+ "</span>";:}
- | constlit:constantelit{:RESULT= "<span class=\"cte\">"+constantelit.toString()+ "</span>";:};
+ | constlit:constantelit{:RESULT= "<span class=\"cte\">"+constantelit.toString()+ "</span>";:}
+ |operacion:opr{:RESULT= "<span class=\"cte\">"+opr.toString()+ "</span>";:};
 
 LFIELD ::=LFIELD:lfield TYPE:tipo {:lista="";:} LID pcoma{:estructuras.getLast().addSentencia(tipo+" " +lista+";<br/>");:}
   | TYPE:tipo LID pcoma{:estructuras.getLast().addSentencia(tipo+" " +lista+";</br>");:};
