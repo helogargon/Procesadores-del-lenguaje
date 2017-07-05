@@ -358,12 +358,12 @@ class CUP$parser$actions {
 		public String toStringFuncion(){
 			String sentencias="";
 			for (String sent: this.sentencias){
-				sentencias = sentencias + sent + "<br/>";
+				sentencias = sentencias + "<div style=\"text-indent: 2cm\">" +sent + "</div><br/>";
 			}
 			String devolver = "<hr/><a name=\""+i+"\">"+cabecera+"{</a>"+ 
-					"<br/><div style=\"text-indent: 2 cm\"><code>" +
+					"<br/><code>"+
 					sentencias +
-					"</code></div>}<br/>"+
+					"</code>}<br/>"+
 					"<a href=\"#inicio\">Inicio</a>" +
 					"<br/>" +
 					"<a href=\"#"+i+"\">Volver a inicio de funci&oacute;n</a>"+
@@ -389,15 +389,12 @@ class CUP$parser$actions {
 		public String toStringEstructura(){
 			String sentencias="";
 			for (String sent: this.sentencias){
-				sentencias = sentencias + sent + "\n";
+				sentencias = sentencias + "<div style=\"text-indent: 2cm\">" +sent + "</div>\n";
 			}
 			String devolver = cabecera+ "{" +
 					"<br/>" +
-					"<div style=\"text-indent: 2 cm\">" +
-					"<code>" +
-					sentencias +
-					"</code>" +
-					"</div>" +
+					"<code>"+
+					sentencias +					"</code>" +
 					"};<br/>";
 
 			return devolver;
@@ -743,7 +740,7 @@ lista="";
 		int lcondleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int lcondright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object lcond = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<span class =\"palres\">then</span>" + "{"  + "<div style=\"text-indent: 5 cm\">");
+cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<span class =\"palres\">then</span>" + "{"  + "<div style=\"text-indent: 2cm\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$3",23, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -755,7 +752,7 @@ cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<s
 		int lcondleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int lcondright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
 		Object lcond = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
-cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{" + "<div style=\"text-indent: 5 cm\">");
+cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{" + "<div style=\"text-indent: 2cm\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$4",24, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -793,7 +790,7 @@ cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{
 		int exp2left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int exp2right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object exp2 = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-cabeceras.getLast().addSentencia("<span class =\"palres\">for</span>("+name.toString()+"="+exp+";"+lcond+";"+name2.toString()+"="+exp2+")"+ "{" + "<div style=\"text-indent: 5 cm\">");
+cabeceras.getLast().addSentencia("<span class =\"palres\">for</span>("+name.toString()+"="+exp+";"+lcond+";"+name2.toString()+"="+exp2+")"+ "{" + "<div style=\"text-indent: 2cm\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$5",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -831,7 +828,7 @@ cabeceras.getLast().addSentencia("<span class =\"palres\">for</span>("+name.toSt
 		int lcondleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int lcondright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object lcond = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-cabeceras.getLast().addSentencia("<span class =\"palres\">while</span>("+lcond+")"+ "{"  + "<div style=\"text-indent: 5 cm\">");
+cabeceras.getLast().addSentencia("<span class =\"palres\">while</span>("+lcond+")"+ "{"  + "<div style=\"text-indent: 2cm\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$6",26, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -854,7 +851,7 @@ cabeceras.getLast().addSentencia("<span class =\"palres\">while</span>("+lcond+"
           case 28: // NT$7 ::= 
             {
               Object RESULT =null;
-cabeceras.getLast().addSentencia("<span class =\"palres\">do</span>{" + "<div style=\"text-indent: 5 cm\">");
+cabeceras.getLast().addSentencia("<span class =\"palres\">do</span>{" + "<div style=\"text-indent: 2cm\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$7",27, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
