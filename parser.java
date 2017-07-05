@@ -358,7 +358,7 @@ class CUP$parser$actions {
 		public String toStringFuncion(){
 			String sentencias="";
 			for (String sent: this.sentencias){
-				sentencias = sentencias + "<div style=\"text-indent: 2cm\">" +sent + "</div><br/>";
+				sentencias = sentencias + "<div style=\"text-indent: 2cm\">" +sent + "</div>";
 			}
 			String devolver = "<hr/><a name=\""+i+"\">"+cabecera+"{</a>"+ 
 					"<br/><code>"+
@@ -389,7 +389,7 @@ class CUP$parser$actions {
 		public String toStringEstructura(){
 			String sentencias="";
 			for (String sent: this.sentencias){
-				sentencias = sentencias + "<div style=\"text-indent: 2cm\">" +sent + "</div>\n";
+				sentencias = sentencias + "<div style=\"text-indent: 2cm\">" +sent + "</div>";
 			}
 			String devolver = cabecera+ "{" +
 					"<br/>" +
