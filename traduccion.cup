@@ -150,10 +150,10 @@ SENT::= TYPE:tipo {:lista="";:} LID pcoma{:cabeceras.getLast().addSentencia(tipo
  | ID:id igual EXP:exp pcoma{:cabeceras.getLast().addSentencia(id+"="+exp+";");:}
  | ident:name par_A LEXP:lexp par_C pcoma{:cabeceras.getLast().addSentencia("<span class =\"palres\">"+ name.toString()+"</span>"+"("+lexp+");");:}
  | return_ EXP:exp pcoma{:cabeceras.getLast().addSentencia("<span class =\"palres\">return</span> "+exp+";");:}
- | tif par_A LCOND:lcond par_C tthen {:cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<span class =\"palres\">then</span>" + "{"  + "<div style=\"text-indent: 2cm\">");:} BLQ telse {:cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{" + "<div style=\"text-indent: 2cm\">");:}BLQ{:cabeceras.getLast().addSentencia("</div>}");:}
+ | tif par_A LCOND:lcond par_C tthen {:cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<span class =\"palres\">then</span>" + "{"  + "<div style=\"text-indent: 2cm\">");:} BLQ telse {:cabeceras.getLast().addSentencia("</div>"+"<div style=\"text-indent: 2cm\">}<span class =\"palres\">else</span>{</div>" + "<div style=\"text-indent: 2cm\">");:}BLQ{:cabeceras.getLast().addSentencia("</div><div style=\"text-indent: 2cm\">}");:}
  | tfor par_A ident:name igual EXP:exp pcoma LCOND:lcond pcoma ident:name2 igual EXP:exp2 par_C {:cabeceras.getLast().addSentencia("<span class =\"palres\">for</span>("+name.toString()+"="+exp+";"+lcond+";"+name2.toString()+"="+exp2+")"+ "{" + "<div style=\"text-indent: 2cm\">");:} BLQ {:cabeceras.getLast().addSentencia("</div>"+"}");:}
  | twhile par_A LCOND:lcond par_C {:cabeceras.getLast().addSentencia("<span class =\"palres\">while</span>("+lcond+")"+ "{"  + "<div style=\"text-indent: 2cm\">");:}BLQ{:cabeceras.getLast().addSentencia("</div>"+"}");:}
- | tdo {:cabeceras.getLast().addSentencia("<span class =\"palres\">do</span>{" + "<div style=\"text-indent: 2cm\">");:}BLQ tuntil par_A LCOND:lcond par_C{:cabeceras.getLast().addSentencia("</div>}<span class =\"palres\">until</span>("+lcond+")");:}
+ | tdo {:cabeceras.getLast().addSentencia("<span class =\"palres\">do</span>{" + "<div style=\"text-indent: 2cm\">");:}BLQ tuntil par_A LCOND:lcond par_C{:cabeceras.getLast().addSentencia("</div><div style=\"text-indent: 2cm\">}<span class =\"palres\">until</span>("+lcond+")");:}
  | BLQ;
 
 LID::= ID:id{:lista= lista+id;:}

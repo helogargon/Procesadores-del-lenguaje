@@ -752,7 +752,7 @@ cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<s
 		int lcondleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int lcondright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
 		Object lcond = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
-cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{" + "<div style=\"text-indent: 2cm\">");
+cabeceras.getLast().addSentencia("</div>"+"<div style=\"text-indent: 2cm\">}<span class =\"palres\">else</span>{</div>" + "<div style=\"text-indent: 2cm\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$4",24, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -766,7 +766,7 @@ cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{
 		int lcondleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int lcondright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
 		Object lcond = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
-		cabeceras.getLast().addSentencia("</div>}");
+		cabeceras.getLast().addSentencia("</div><div style=\"text-indent: 2cm\">}");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("SENT",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -865,7 +865,7 @@ cabeceras.getLast().addSentencia("<span class =\"palres\">do</span>{" + "<div st
 		int lcondleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int lcondright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object lcond = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		cabeceras.getLast().addSentencia("</div>}<span class =\"palres\">until</span>("+lcond+")");
+		cabeceras.getLast().addSentencia("</div><div style=\"text-indent: 2cm\">}<span class =\"palres\">until</span>("+lcond+")");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("SENT",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

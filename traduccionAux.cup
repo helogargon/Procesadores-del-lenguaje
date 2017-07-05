@@ -1,101 +1,208 @@
 import java_cup.runtime.*;
+import java.io.*;
 import java.util.*;
 
 action code
 {:
-	private LinkedList<String> cabeceras=new LinkedList();
-	public void imprimir(){
-		System.out.println("<ul>");
-		for(int i=0;i<cabeceras.size();i++){
-			System.out.println("<li>"+cabeceras.get(i)+"</li>");
+	public class Funcion{
+		private int i;//identificador unico para cada funcion
+		private String cabecera;
+		private LinkedList<String> sentencias= new LinkedList(); //incluye la sentencia y el estilo especial de la misma
+		
+		public Funcion (){
 		}
-		System.out.println("</ul>");
+		public void addSentencia(String sent){
+			this.sentencias.add(sent);
+		}
+		public void setI(int i){
+			this.i= i;
+		}
+		public void setCabecera(String cab){
+			this.cabecera=cab;
+		}
+		public String cabeceraToString(){
+			return "<li><a href=\"#"+i+"\">"+cabecera+"</a></li>";
+		}
+		public String toStringFuncion(){
+			String sentencias="";
+			for (String sent: this.sentencias){
+				sentencias = sentencias + sent + "<br/>";
+			}
+			String devolver = "<hr/><a name=\""+i+"\">"+cabecera+"{</a>"+ 
+					"<br/><div style=\"text-indent:2 cm\"><code>" +
+					sentencias +
+					"</code></div>}<br/>"+
+					"<a href=\"#inicio\">Inicio</a>" +
+					"<br/>" +
+					"<a href=\"#"+i+"\">Volver a inicio de funci&oacute;n</a>"+
+					"<br/><br/>";
+
+			return devolver;
+			
+		}
+		
+	}
+	public class Estructura{
+		private String cabecera;
+		private LinkedList<String> sentencias= new LinkedList(); //incluye la sentencia y el estilo especial de la misma
+		
+		public Estructura (){
+		}
+		public void setCabecera(String cab){
+			this.cabecera=cab;
+		}
+		public void addSentencia(String sent){
+			this.sentencias.add(sent);
+		}
+		public String toStringEstructura(){
+			String sentencias="";
+			for (String sent: this.sentencias){
+				sentencias = sentencias + sent + "\n";
+			}
+			String devolver = cabecera+ "{" +
+					"<br/>" +
+					"<div style=\"text-indent: 2cm\">" +
+					"<code>" +
+					sentencias +
+					"</code>" +
+					"</div>" +
+					"};<br/>";
+
+			return devolver;
+			
+		}
+		
+	}
+	private LinkedList<String> identificadoresStruct=new LinkedList();
+	private BufferedWriter bw;
+	private LinkedList<Funcion> cabeceras=new LinkedList();
+	private LinkedList<Estructura> estructuras=new LinkedList();
+	private String lista;
+
+	public String identStruct(){
+		String idents="";
+		for (String i: identificadoresStruct){
+			idents = idents + i+  ", ";
+		}
+		return idents;
+	}
+
+	public void imprimir(String nombre){
+
+		try{
+			bw = new BufferedWriter(new FileWriter(nombre+".html"));
+			
+
+			bw.write("<html><head><title>"+nombre+"</title><style>.cte {color:rgb(19,189,72);}.ident {color:rgb(55,40,244);}.palres {color:rgb(0,0,0);font-weight:bold;}</style></head><body><h1><a name=\"inicio\">Programa "+nombre+"</a></h1>");
+			
+			bw.write("<h2>Funciones</h2>");		
+
+			//Cabeceras
+			bw.write("<ul>");
+			for(int i=0;i<cabeceras.size();i++){
+				cabeceras.get(i).setI(i);
+				bw.write(cabeceras.get(i).cabeceraToString());
+			}
+			bw.write("</ul>");
+			for(int i=0;i<cabeceras.size();i++){
+				bw.write(cabeceras.get(i).toStringFuncion());
+			}
+
+			for(int i=0;i<estructuras.size();i++){
+				bw.write(estructuras.get(i).toStringEstructura());
+			}
+
+			//Clausura html
+			bw.write("</body>\n</html>");
+
+			bw.close();
+		}catch(IOException ioe){
+			System.out.println("File not exist");
+		}
+		
+		
 	}
 :};
 
-terminal ident, tvoid, tint, tfloat, coma, pcoma, par_A, par_C, llave_A, llave_C, igual, op_sum, op_sub, op_mul, op_div, op_mod, constint, constfloat, constlit, return_, tstruct, tif,tthen,telse,tfor,twhile,tdo,tuntil,punto,tnot,tor,tand,igualIgual,menor,mayor,mayorIgual,menorIgual,corch_A,corch_C;
+terminal ident, tvoid, tint, tfloat, coma, pcoma, par_A, par_C, llave_A, llave_C, igual, op_sum, op_sub, op_mul, op_div, op_mod, operacion,constint, constfloat, constlit, return_, tstruct, tif,tthen,telse,tfor,twhile,tdo,tuntil,punto,tnot,tor,tand,igualIgual,menor,mayor,mayorIgual,menorIgual,corch_A,corch_C;
 non terminal PROGRAM, PART, TYPE, RESTPART, LISTPARAM, BLQ, SENTLIST, SENT, LID, EXP, LEXP, OP, FACTOR, LFIELD, ID, LCOND, OPL, COND, OPR, LDIM;
 
 
 precedence left op_mul, op_div, op_mod, op_sum, op_sub;
 precedence left tor, tand;
-
 PROGRAM ::=PART PROGRAM
  | PART;
+PART::= TYPE:tipo {:Funcion f = new Funcion();cabeceras.add(f);:} RESTPART:restpart{:cabeceras.getLast().setCabecera(tipo+" "+restpart);:}
+ | tstruct ident:name {:Estructura e = new Estructura(); e.setCabecera("<span class =\"palres\">struct</span> "+"<span class =\"ident\">"+ name.toString()+"</span>");estructuras.add(e);:} llave_A LFIELD:lfield llave_C pcoma;
 
-PART::= TYPE RESTPART
- | tstruct ident:name{:cabeceras.add(name.toString());:} llave_A LFIELD llave_C pcoma;
-
-RESTPART::= ident:name{:cabeceras.add(name.toString());:} par_A LISTPARAM par_C BLQ;
+RESTPART::= ident:name par_A LISTPARAM:param par_C BLQ{:RESULT="<span class =\"ident\">"+ name.toString()+"</span>"+"("+param+")";:} ;
 
 BLQ::= llave_A SENTLIST llave_C;
 
-LISTPARAM::= LISTPARAM coma TYPE ident
- | TYPE ident;
+LISTPARAM::= LISTPARAM:param coma TYPE:tipo ident:name{:RESULT=param+", "+tipo+" "+"<span class =\"palres\">"+ name.toString()+"</span>";:}
+ | TYPE:tipo ident:name{:RESULT=tipo+" "+"<span class =\"palres\">"+ name.toString()+"</span>";:};
 
-TYPE::= tvoid
- | tint
- | tfloat;
+TYPE::= tvoid{:RESULT="<span class =\"palres\">void</span>";:}
+ | tint{:RESULT="<span class =\"palres\">int</span>";:}
+ | tfloat{:RESULT="<span class =\"palres\">float</span>";:};
 
 SENTLIST::= SENTLIST SENT
  | SENT;
 
-SENT::= TYPE LID pcoma
- | ID igual EXP pcoma
- | ident par_A LEXP par_C pcoma
- | return_ EXP pcoma
- | tif par_A LCOND par_C tthen BLQ telse BLQ
- | tfor par_A ident igual EXP pcoma LCOND pcoma ident igual EXP par_C BLQ
- | twhile par_A LCOND par_C BLQ
- | tdo BLQ tuntil par_A LCOND par_C
+SENT::= TYPE:tipo {:lista="";:} LID pcoma{:cabeceras.getLast().addSentencia(tipo+" "+lista+";");:}
+ | ID:id igual EXP:exp pcoma{:cabeceras.getLast().addSentencia(id+"="+exp+";");:}
+ | ident:name par_A LEXP:lexp par_C pcoma{:cabeceras.getLast().addSentencia("<span class =\"palres\">"+ name.toString()+"</span>"+"("+lexp+");");:}
+ | return_ EXP:exp pcoma{:cabeceras.getLast().addSentencia("<span class =\"palres\">return</span> "+exp+";");:}
+ | tif par_A LCOND:lcond par_C tthen {:cabeceras.getLast().addSentencia("<span class =\"palres\">if</span>("+lcond+")<span class =\"palres\">then</span>" + "{"  + "<div style=\"text-indent: 5cm\">");:} BLQ telse {:cabeceras.getLast().addSentencia("</div>"+"}<span class =\"palres\">else</span>{" + "<div style=\"text-indent: 5cm\">");:}BLQ{:cabeceras.getLast().addSentencia("</div>}");:}
+ | tfor par_A ident:name igual EXP:exp pcoma LCOND:lcond pcoma ident:name2 igual EXP:exp2 par_C {:cabeceras.getLast().addSentencia("<span class =\"palres\">for</span>("+name.toString()+"="+exp+";"+lcond+";"+name2.toString()+"="+exp2+")"+ "{" + "<div style=\"text-indent: 5 cm\">");:} BLQ {:cabeceras.getLast().addSentencia("</div>"+"}");:}
+ | twhile par_A LCOND:lcond par_C {:cabeceras.getLast().addSentencia("<span class =\"palres\">while</span>("+lcond+")"+ "{"  + "<div style=\"text-indent: 5cm\">");:}BLQ{:cabeceras.getLast().addSentencia("</div>"+"}");:}
+ | tdo {:cabeceras.getLast().addSentencia("<span class =\"palres\">do</span>{" + "<div style=\"text-indent: 5cm\">");:}BLQ tuntil par_A LCOND:lcond par_C{:cabeceras.getLast().addSentencia("</div>}<span class =\"palres\">until</span>("+lcond+")");:}
  | BLQ;
 
-LID::= ID
- | LID coma ID;
+LID::= ID:id{:lista= lista+id;:}
+ | LID coma ID:id{:lista=lista+", "+id;:};
 
-LEXP::= EXP
- | LEXP coma EXP;
+EXP::= EXP:exp1 OP:op EXP:exp2{:RESULT= exp1+" "+op+" "+exp2;:}
+ | FACTOR:factor{:RESULT=factor;:};
 
-EXP::= EXP OP EXP
- | FACTOR;
+LEXP ::= EXP:exp{:RESULT=exp;:}
+ | LEXP:lexp1 coma EXP:exp1{:RESULT=lexp1+", "+exp1;:};
 
-OP::= op_sum
- | op_sub
- | op_mul
- | op_div
- | op_mod;
+OP::= op_sum{:RESULT="+";:}
+ | op_sub{:RESULT="-";:}
+ | op_mul{:RESULT="*";:}
+ | op_div{:RESULT="/";:}
+ | op_mod{:RESULT="%";:};
 
-FACTOR::= ident par_A LEXP par_C
- | par_A EXP par_C
- | ID
- | constint
- | constfloat
- | constlit;
+FACTOR::= ident:id par_A LEXP:lexp par_C{:RESULT="<span class =\"palres\">"+ id.toString()+"</span>"+"("+lexp+")";:}
+ | par_A EXP:exp par_C{:RESULT="("+exp+")";:}
+ | ID:id{:RESULT=id;:}
+ | constint:constanteint{:RESULT="<span class=\"cte\">"+constanteint.toString()+ "</span>";:}
+ | constfloat:constantefloat{:RESULT= "<span class=\"cte\">"+constantefloat.toString()+ "</span>";:}
+ | constlit:constantelit{:RESULT= "<span class=\"cte\">"+constantelit.toString()+ "</span>";:}
+ |operacion:opr{:RESULT= "<span class=\"cte\">"+opr.toString()+ "</span>";:};
 
-LFIELD ::= LFIELD TYPE LID pcoma
-  | TYPE LID pcoma;
+LFIELD ::=LFIELD:lfield TYPE:tipo {:lista="";:} LID pcoma{:estructuras.getLast().addSentencia(tipo+" " +lista+";<br/>");:}
+  | TYPE:tipo LID pcoma{:estructuras.getLast().addSentencia(tipo+" " +lista+";</br>");:};
 
-ID ::= ident
- | ident punto ident
- | ident LDIM;
+ID ::= ident:name{:RESULT="<span class =\"ident\">"+ name.toString()+"</span>";:}
+ | ident:name1 punto ident:name2{:RESULT="<span class =\"ident\">"+ name1.toString()+"</span>"+"."+"<span class =\"ident\">"+ name2.toString()+"</span>";:}
+ | ident:name LDIM:ldmi {:RESULT="<span class =\"ident\">"+ name.toString()+"</span>"+" "+ldmi;:};
 
-LCOND ::= LCOND OPL LCOND
- | COND
- | tnot COND;
+LCOND ::= LCOND:lcond1 OPL:opl1 LCOND:lcond2{:RESULT=lcond1+""+opl1+lcond2;:}
+ | COND:cond{:RESULT=cond;:}
+ | tnot COND:cond{:RESULT="!"+cond;:};
 
-OPL ::= tor
- | tand;
+OPL ::= tor{:RESULT="||";:}
+ | tand{:RESULT="&&";:};
 
-COND ::= EXP OPR EXP;
+COND ::= EXP:exp1 OPR:opr EXP:exp2{:RESULT=exp1.toString()+opr.toString()+exp2.toString();:};
 
-OPR::= igualIgual
- | menor
- | mayor
- | mayorIgual
- | menorIgual;
+OPR::= igualIgual{:RESULT="==";:}
+ | menor{:RESULT="&lt;";:}
+ | mayor{:RESULT="&gt;";:}
+ | mayorIgual{:RESULT="&gt;=";:}
+ | menorIgual{:RESULT="&lt;=";:};
 
-LDIM ::= LDIM corch_A constint corch_C
- | corch_A constint corch_C;
-
-
-
+LDIM ::= LDIM:ldim corch_A constint:constante corch_C{:RESULT=ldim+"["+"<span class=\"cte\">"+constante.toString()+ "</span>"+"]";:}
+| corch_A constint:constante corch_C{:RESULT="["+"<span class=\"cte\">"+constante.toString()+ "</span>"+"]";:};
